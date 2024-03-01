@@ -1,7 +1,8 @@
 import { styled } from "styled-components"
 
 
-const Base = styled.div<{ 
+const Base = styled.div<{
+    $margin?: string;
     $padding?: string;
     $height?: string; 
     $width?: string; 
@@ -12,18 +13,25 @@ const Base = styled.div<{
     $justifyContent?: string;
     $gap?: number;
     $flexDirection?: string;
+    $flexGrow?: number;
+    $maxWidth?: string;
+    $flexWrap?: string;
     }>`
     display: flex;
-    padding: ${props => props.$padding ? `${props.$padding}` : "3rem"};
-    width: ${props => props.$width ? props.$width : "full"};
-    height: ${props => props.$height ? props.$height : "2rem"};
+    padding: ${props => props.$padding ? `${props.$padding}` : "0"};
+    margin: ${props => props.$margin ? props.$margin : "0"};
+    width: ${props => props.$width ? props.$width : "100%"};
+    max-width: ${props => props.$maxWidth ? props.$width : "100%"};
+    height: ${props => props.$height ? props.$height : "auto"};
     background: ${props => props.$background ? props.$background : "#fff"};
     border-radius: ${props => props.$borderRadius ? `${props.$borderRadius}px` : 0};
     box-shadow: ${props => props.$boxShadow ? "10px 5px 5px #EAE9E8" : "0"};
     align-items: ${props => props.$alignItems ? props.$alignItems : ""};
     justify-content: ${props => props.$justifyContent ? props.$justifyContent : ""};
     gap: ${props => props.$gap ? `${props.$gap}rem` : "0"};
-    flex-direction: ${props => props.$flexDirection ? props.$flexDirection : "column"}; 
+    flex-direction: ${props => props.$flexDirection ? props.$flexDirection : "column"};
+    flex-grow: ${props => props.$flexGrow ? props.$flexGrow : "0"};
+    flex-wrap: ${props => props.$flexWrap ? props.$flexWrap : "no-wrap"};
 `
 
 export default Base

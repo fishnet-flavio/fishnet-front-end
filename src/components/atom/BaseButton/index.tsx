@@ -16,6 +16,12 @@ const BaseButton = styled.button<{
     background: ${props => props.$background ? props.$background : "#000"};
     cursor: pointer;
     box-shadow: "10px 5px 5px #EAE9E8";
+    transition: .5s;
+    user-select: none;
+    text-align: center;
+    &:hover {
+        scale: 1.01;
+    }
 `
 
 export default BaseButton
