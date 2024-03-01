@@ -12,6 +12,8 @@ const BaseButton = styled.button<{
     border-radius: ${props => props.$borderRadius ? `${props.$borderRadius}px` : "12px"};
     border: ${props => props.$border ? props.$border : "none"};
     background: ${props => props.$background ? props.$background : "#000"};
+    cursor: pointer;
+    box-shadow: "10px 5px 5px #EAE9E8";
 `
 
 export default BaseButton
