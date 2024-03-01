@@ -16,8 +16,10 @@ const Base = styled.div<{
     $flexGrow?: number;
     $maxWidth?: string;
     $flexWrap?: string;
+    $position?: string;
     }>`
     display: flex;
+    position: ${props => props.$position ? props.$position : "initial"};
     padding: ${props => props.$padding ? `${props.$padding}` : "0"};
     margin: ${props => props.$margin ? props.$margin : "0"};
     width: ${props => props.$width ? props.$width : "100%"};

@@ -9,7 +9,7 @@ const BaseButton = styled.button<{
     $border?: string;
     }>`
     padding: ${props => props.$padding ? props.$padding : "0"};
-    width: ${props => props.$width ? props.$width : "6rem"};
+    width: ${props => props.$width ? props.$width : "100%"};
     height: ${props => props.$height ? props.$height : "4rem"};
     border-radius: ${props => props.$borderRadius ? `${props.$borderRadius}px` : "12px"};
     border: ${props => props.$border ? props.$border : "none"};

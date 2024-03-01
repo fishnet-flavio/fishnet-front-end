@@ -14,11 +14,11 @@ const Navbar = () => {
     const currentUser: User = {name: "user", id: "user123"};
 
     return (
-        <Base $width="full" $flexDirection="row" $padding="0 3rem 1rem" $height="8rem" $margin="0 0 3rem 0" $alignItems="center" $justifyContent="space-between">
+        <Base $width="100%" $position="fixed" $flexDirection="row" $padding="0 3rem 1rem" $height="8rem" $margin="0 0 3rem " $alignItems="center" $justifyContent="space-between">
             <Link to="/">
                 <BaseText $fontSize={44} $userSelect="none" $fontWeight="bold">FishNet</BaseText>
             </Link>
-            <Base $width="fit-content" $flexDirection="row" $alignItems="center" $gap={5}>
+            <Base $width="fit-content" $flexDirection="row" $alignItems="center" $gap={5} $margin="0 6rem 0 0">
                 <Link to={`${currentUser.id}/wishlist`}>
                     <BaseText $fontSize={20}>Lista de Desejos</BaseText>
                 </Link>
