@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
 const BaseButton = styled.button<{
-    $width?: number;
-    $height?: number;
+    $padding?: string;
+    $width?: string;
+    $height?: string;
     $borderRadius?: number;
     $background?: string;
     $border?: string;
     }>`
-    width: ${props => props.$width ? `${props.$width}rem` : "6rem"};
-    height: ${props => props.$height ? `${props.$height}rem` : "4rem"};
+    padding: ${props => props.$padding ? props.$padding : "0"};
+    width: ${props => props.$width ? props.$width : "6rem"};
+    height: ${props => props.$height ? props.$height : "4rem"};
     border-radius: ${props => props.$borderRadius ? `${props.$borderRadius}px` : "12px"};
     border: ${props => props.$border ? props.$border : "none"};
     background: ${props => props.$background ? props.$background : "#000"};

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 const BaseImage = styled.img<{
-    $width?: number;
-    $height?: number;
+    $width?: string;
+    $height?: string;
     $borderRadius?: number;
 }>`
-    width: ${props => props.$width ? `${props.$width}rem` : "6rem"};
-    height: ${props => props.$height ? `${props.$height}rem` : "4rem"};
+    width: ${props => props.$width ? props.$width : "12rem"};
+    height: ${props => props.$height ? props.$height : "8rem"};
     border-radius: ${props => props.$borderRadius ? `${props.$borderRadius}px` : "12px"};
 `
 
