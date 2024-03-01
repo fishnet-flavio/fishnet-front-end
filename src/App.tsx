@@ -1,9 +1,17 @@
-import BaseCard from "./components/foundation/BaseCard";
+import Card from "./components/molecule/Card";
+
 
 function App() {
   return (
     <div className="App">
-      <BaseCard $width={24} $padding="5" $borderRadius={20}/>
+      <Card 
+        imageUrl="~//assets/pirarucu.jpg" 
+        price={25.90}  
+        description="Pirarucu pescado do Lago Igapó" 
+        vendor={{name: "José Pinhais"}}
+        itemName="Pirarucu"
+        stock={5}
+      />
     </div>
   );
 }
