@@ -6,7 +6,7 @@ import BaseText from "../../atom/BaseText";
 import VendorCard from "../VendorCard";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
-import { FaShoppingCart } from "react-icons/fa";
+import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 interface Vendor {
@@ -24,6 +24,7 @@ interface CardProps {
     description: string;
 }
 
+
 const Card = (props: CardProps) => {
     const [favorite, setFavorite] = useState<boolean>(false);
 
@@ -32,7 +33,7 @@ const Card = (props: CardProps) => {
     }
 
     return (
-        <Base $width="45rem" $margin="4rem 0 0 0" $justifyContent="space-between" $flexDirection="row" $padding="2rem 2rem" $gap={4} $boxShadow $borderRadius={16} >
+        <Base $width="45rem" $margin="4rem 0 0 0" $justifyContent="space-between" $flexDirection="row" $padding="2rem 2rem" $gap={4} $boxShadow $borderRadius={16} className="responsiveList" >
             <Base $width="fit-content" $height="max-content" $gap={2}>
                 <BaseImage src={props.imageUrl} $width="16rem" $height="12rem" />
                 <VendorCard vendorImageUrl={props.vendor.imageUrl} vendorName={props.vendor.name} />
@@ -47,12 +48,12 @@ const Card = (props: CardProps) => {
                     <BaseButton><BaseText $userSelect="none" $color="#fff" $fontWeight="bold">Comprar</BaseText></BaseButton>
                 </Link>
             </Base>
-            <Base $width="fit-content" $gap={2} >
+            <Base $width="fit-content" $gap={2}>
                 {favorite ? 
-                <FaHeart cursor={"pointer"} size={32} color="#f04" onClick={handleFavorite} /> :
-                <FaRegHeart cursor={"pointer"} size={32} onClick={handleFavorite}/>    
+                <FaHeart cursor={"pointer"} size={32} color="#f04" onClick={handleFavorite} className="hover" /> :
+                <FaRegHeart cursor={"pointer"} size={32} onClick={handleFavorite} className="hover" />    
             }
-                <FaShoppingCart cursor={"pointer"} size={32} />
+                <MdAddShoppingCart cursor={"pointer"} size={32} className="hover" />
             </Base>
         </Base>
     )

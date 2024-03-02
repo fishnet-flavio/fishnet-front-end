@@ -4,7 +4,8 @@ import { styled } from "styled-components"
 const Base = styled.div<{
     $margin?: string;
     $padding?: string;
-    $height?: string; 
+    $height?: string;
+    $minHeight?: string;
     $width?: string; 
     $background?: string;
     $borderRadius?: number;
@@ -25,6 +26,7 @@ const Base = styled.div<{
     width: ${props => props.$width ? props.$width : "100%"};
     max-width: ${props => props.$maxWidth ? props.$width : "100%"};
     height: ${props => props.$height ? props.$height : "auto"};
+    min-height: ${props=> props.$minHeight ? props.$minHeight : "auto"};
     background: ${props => props.$background ? props.$background : "#fff"};
     border-radius: ${props => props.$borderRadius ? `${props.$borderRadius}px` : 0};
     box-shadow: ${props => props.$boxShadow ? "10px 5px 5px #d1cfce" : ""};
@@ -34,6 +36,13 @@ const Base = styled.div<{
     flex-direction: ${props => props.$flexDirection ? props.$flexDirection : "column"};
     flex-grow: ${props => props.$flexGrow ? props.$flexGrow : "0"};
     flex-wrap: ${props => props.$flexWrap ? props.$flexWrap : "nowrap"};
+
+    .hover {
+        transition: .5s;
+        &:hover {
+            scale: 1.02;
+        }
+    }
 `
 
 export default Base
