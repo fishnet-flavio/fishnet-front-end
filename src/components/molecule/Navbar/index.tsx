@@ -5,7 +5,6 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import BaseImage from "../../atom/BaseImage";
 import logo from "../../../assets/fishnet-logo.png";
-import Sidebar from "../Sidebar";
 
 interface User {
     id: string;

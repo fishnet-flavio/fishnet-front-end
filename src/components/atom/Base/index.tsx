@@ -18,6 +18,7 @@ const Base = styled.div<{
     $maxWidth?: string;
     $flexWrap?: string;
     $position?: string;
+    $overflow?: string;
     }>`
     display: flex;
     position: ${props => props.$position ? props.$position : "initial"};
@@ -36,7 +37,8 @@ const Base = styled.div<{
     flex-direction: ${props => props.$flexDirection ? props.$flexDirection : "column"};
     flex-grow: ${props => props.$flexGrow ? props.$flexGrow : "0"};
     flex-wrap: ${props => props.$flexWrap ? props.$flexWrap : "nowrap"};
-
+    overflow: ${props => props.$overflow ? props.$overflow : "visible"};
+    
     .hover {
         transition: .5s;
         &:hover {

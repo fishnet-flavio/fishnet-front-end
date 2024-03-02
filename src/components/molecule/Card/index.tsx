@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Base from "../../atom/Base"
 import BaseButton from "../../atom/BaseButton";
 import BaseImage from "../../atom/BaseImage";
@@ -10,12 +10,14 @@ import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 interface Vendor {
+    id: number;
     imageUrl: string;
     name: string;
     rating: number;
 }
 
 interface CardProps {
+    id: number
     imageUrl: string;
     itemName: string;
     stock: number;
@@ -44,7 +46,7 @@ const Card = (props: CardProps) => {
                 <BaseText $textAlign="justify">{props.description}</BaseText>
                 {props.stock > 0 ? <BaseText $fontSize={16} >Estoque: {props.stock}</BaseText> : <BaseText $color="#f04" $fontWeight="bold" $fontSize={16}>Sem estoque</BaseText>}
                 <BaseText $fontSize={36} $fontWeight="bold">R$ {props.price.toFixed(2)}</BaseText>
-                <Link to="/vendor/sale/pirarucu">
+                <Link to={`/${props.vendor.id}/sale/${props.id}`}>
                     <BaseButton><BaseText $userSelect="none" $color="#fff" $fontWeight="bold">Comprar</BaseText></BaseButton>
                 </Link>
             </Base>

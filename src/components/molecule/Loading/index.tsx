@@ -2,7 +2,11 @@ import Base from "../../atom/Base"
 import loading from "../../../assets/loading.gif";
 
 const Loading = () => {
-    return (<img src={loading} />)
+    return (
+    <Base $background="transparent" $width="fit-content">
+        <img src={loading} />
+    </Base>
+    )
 }
 
 export default Loading
