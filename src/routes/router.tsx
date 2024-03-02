@@ -6,6 +6,8 @@ import ProductPage from "../pages/ProductPage";
 import WishlistPage from "../pages/WishlistPage";
 import ShoppingCartPage from "../pages/ShoppingCartPage";
 import UserProfilePage from "../pages/UserProfilePage";
+import ProductRegisterPage from "../pages/ProductRegisterPage";
+import SignInPage from "../pages/SignInPage";
 
 const router = createBrowserRouter([
     {
@@ -14,10 +16,16 @@ const router = createBrowserRouter([
         children: [
             {path: "", element: <MarketPlacePage />},
             {path: "login", element: <LoginPage />},
-            {path: ":vendorId/sale/:saleId", element: <ProductPage />},
-            {path: ":userId/wishlist", element: <WishlistPage />},
-            {path: ":userId/shopping-cart", element: <ShoppingCartPage />},
-            {path: ":userId/profile", element: <UserProfilePage />}
+            {path: "signin", element: <SignInPage />},
+            {path: ":vendorId", children: [
+                {path: "sale/:saleId", element: <ProductPage />},
+                {path: "product-register", element: <ProductRegisterPage />}
+            ]},
+            {path: ":userId", children: [
+                {path: "profile", element: <UserProfilePage />},
+                {path: "wishlist", element: <WishlistPage />},
+                {path: "shopping-cart", element: <ShoppingCartPage />},
+            ]}
         ]
     }
 ]);

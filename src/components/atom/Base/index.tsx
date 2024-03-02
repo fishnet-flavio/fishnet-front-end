@@ -27,13 +27,13 @@ const Base = styled.div<{
     height: ${props => props.$height ? props.$height : "auto"};
     background: ${props => props.$background ? props.$background : "#fff"};
     border-radius: ${props => props.$borderRadius ? `${props.$borderRadius}px` : 0};
-    box-shadow: ${props => props.$boxShadow ? "10px 5px 5px #d1cfce" : "0"};
+    box-shadow: ${props => props.$boxShadow ? "10px 5px 5px #d1cfce" : ""};
     align-items: ${props => props.$alignItems ? props.$alignItems : ""};
     justify-content: ${props => props.$justifyContent ? props.$justifyContent : ""};
     gap: ${props => props.$gap ? `${props.$gap}rem` : "0"};
     flex-direction: ${props => props.$flexDirection ? props.$flexDirection : "column"};
     flex-grow: ${props => props.$flexGrow ? props.$flexGrow : "0"};
-    flex-wrap: ${props => props.$flexWrap ? props.$flexWrap : "no-wrap"};
+    flex-wrap: ${props => props.$flexWrap ? props.$flexWrap : "nowrap"};
 `
 
 export default Base
