@@ -34,8 +34,12 @@ const Card = (props: CardProps) => {
         setFavorite(!favorite)
     }
 
+    const handleAddToCart = () => {
+        
+    }
+
     return (
-        <Base $width="45rem" $margin="4rem 0 0 0" $justifyContent="space-between" $flexDirection="row" $padding="2rem 2rem" $gap={4} $boxShadow $borderRadius={16} className="responsiveList" >
+        <Base $width="45rem" $margin="4rem 0 0 0" $justifyContent="space-between" $flexDirection="row" $padding="2rem 2rem" $gap={4} $boxShadow $borderRadius={16} className="responsiveList">
             <Base $width="fit-content" $height="max-content" $gap={2}>
                 <BaseImage src={props.imageUrl} $width="16rem" $height="12rem" />
                 <VendorCard vendorImageUrl={props.vendor.imageUrl} vendorName={props.vendor.name} />
@@ -43,7 +47,9 @@ const Card = (props: CardProps) => {
             </Base>
             <Base $gap={2} $height="max-content" $maxWidth="100%">
                 <BaseText $fontSize={24} $fontWeight="bold">{props.itemName}</BaseText>
-                <BaseText $textAlign="justify">{props.description}</BaseText>
+                <Base $overflow="scroll" $maxHeight="15rem" $padding="0 2rem 0 0">
+                    <BaseText $textAlign="justify">{props.description}</BaseText>
+                </Base>
                 {props.stock > 0 ? <BaseText $fontSize={16} >Estoque: {props.stock}</BaseText> : <BaseText $color="#f04" $fontWeight="bold" $fontSize={16}>Sem estoque</BaseText>}
                 <BaseText $fontSize={36} $fontWeight="bold">R$ {props.price.toFixed(2)}</BaseText>
                 <Link to={`/${props.vendor.id}/sale/${props.id}`}>
@@ -55,7 +61,7 @@ const Card = (props: CardProps) => {
                 <FaHeart cursor={"pointer"} size={32} color="#f04" onClick={handleFavorite} className="hover" /> :
                 <FaRegHeart cursor={"pointer"} size={32} onClick={handleFavorite} className="hover" />    
             }
-                <MdAddShoppingCart cursor={"pointer"} size={32} className="hover" />
+                <MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleAddToCart} />
             </Base>
         </Base>
     )

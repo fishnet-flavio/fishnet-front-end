@@ -8,6 +8,7 @@ const BaseImage = styled.img<{
     width: ${props => props.$width ? props.$width : "12rem"};
     height: ${props => props.$height ? props.$height : "8rem"};
     border-radius: ${props => props.$borderRadius ? `${props.$borderRadius}px` : "12px"};
+    user-select: none;
 `
 
 export default BaseImage

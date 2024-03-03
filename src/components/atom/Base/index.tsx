@@ -6,6 +6,7 @@ const Base = styled.div<{
     $padding?: string;
     $height?: string;
     $minHeight?: string;
+    $maxHeight?: string;
     $width?: string; 
     $background?: string;
     $borderRadius?: number;
@@ -26,6 +27,7 @@ const Base = styled.div<{
     margin: ${props => props.$margin ? props.$margin : "0"};
     width: ${props => props.$width ? props.$width : "100%"};
     max-width: ${props => props.$maxWidth ? props.$width : "100%"};
+    max-height: ${props => props.$maxHeight ? props.$maxHeight : "auto"};
     height: ${props => props.$height ? props.$height : "auto"};
     min-height: ${props=> props.$minHeight ? props.$minHeight : "auto"};
     background: ${props => props.$background ? props.$background : "#fff"};
