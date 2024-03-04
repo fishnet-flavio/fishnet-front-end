@@ -4,6 +4,7 @@ import BaseButton from "../../atom/BaseButton";
 import BaseImage from "../../atom/BaseImage";
 import BaseText from "../../atom/BaseText";
 import VendorCard from "../VendorCard";
+import shopImage from "../../../assets/barco.png"
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
@@ -42,7 +43,7 @@ const Card = (props: CardProps) => {
         <Base $width="45rem" $margin="4rem 0 0 0" $justifyContent="space-between" $flexDirection="row" $padding="2rem 2rem" $gap={4} $boxShadow $borderRadius={16} className="responsiveList">
             <Base $width="fit-content" $height="max-content" $gap={2}>
                 <BaseImage src={props.imageUrl} $width="16rem" $height="12rem" />
-                <VendorCard vendorImageUrl={props.vendor.imageUrl} vendorName={props.vendor.name} />
+                <VendorCard vendorImageUrl={props.vendor.imageUrl ? props.vendor.imageUrl : shopImage} vendorName={props.vendor.name} />
                 <BaseText>Avaliação do vendedor:</BaseText> <BaseText $fontWeight="bold" $fontSize={32} $color={props.vendor.rating >= 70 ? "#09e409a6" : "#fb0" }>{props.vendor.rating}</BaseText>
             </Base>
             <Base $gap={2} $height="max-content" $maxWidth="100%">

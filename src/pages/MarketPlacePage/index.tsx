@@ -3,7 +3,6 @@ import shopImage from "../../assets/pirarucu.jpg"
 import Base from "../../components/atom/Base";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import BaseText from "../../components/atom/BaseText";
 import Loading from "../../components/molecule/Loading";
 
 interface Vendor {
@@ -30,7 +29,6 @@ const MarketPlacePage = () => {
             const getData = async () => {
                 const fetchProducts = async () => {
                     const response = await api.get("product");
-                    console.log(response.data)
                     setProducts(response.data);
                 }
                 await fetchProducts();
