@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 interface Vendor {
     id: number;
-    imageUrl: string;
+    imageUrl?: string;
     name: string;
     rating: number;
 }

@@ -4,6 +4,7 @@ import Base from "../../components/atom/Base";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import Loading from "../../components/molecule/Loading";
+import BaseText from "../../components/atom/BaseText";
 
 interface Vendor {
     id: number;
@@ -55,7 +56,7 @@ const MarketPlacePage = () => {
                                 stock={p.stock}
                             />)
                     ) : (
-                        <Loading />
+                        <BaseText $fontWeight="bold" $fontSize={24}>Nenhum produto encontrado</BaseText>
                     )
                 }
             </Base>
