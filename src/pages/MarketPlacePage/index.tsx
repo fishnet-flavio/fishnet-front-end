@@ -6,16 +6,22 @@ import { api } from "../../services/api";
 import Loading from "../../components/molecule/Loading";
 import BaseText from "../../components/atom/BaseText";
 
+interface User {
+    id: number;
+    imageUrl?: string;
+    name: string;
+}
+
 interface Vendor {
     id: number;
-    imageUrl: string;
-    name: string;
+    user: User
     rating: number;
 }
 
 interface Product {
-    id: number;
-    itemName: string;
+    id: number
+    imageUrl: string;
+    name: string;
     stock: number;
     vendor: Vendor;
     price: number;
@@ -52,7 +58,7 @@ const MarketPlacePage = () => {
                                 price={p.price}  
                                 description={p.description}
                                 vendor={p.vendor}
-                                itemName={p.itemName}
+                                name={p.name}
                                 stock={p.stock}
                             />)
                     ) : (
