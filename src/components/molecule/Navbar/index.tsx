@@ -25,8 +25,8 @@ const Navbar = () => {
 
     return (
     <>
-        <Base $width="100%" $position="fixed" $flexDirection="row" $padding="1rem 3rem" $min-height="8rem" $margin="0 0 3rem " $alignItems="center" $justifyContent="space-between">
-            <Base $flexDirection="row" $alignItems="center" $gap={5} $width="fit-content" >
+        <Base $width="100%" $position="fixed" $overflowY="clip" $flexDirection="row" $padding="1rem 3rem" $height="6rem" $margin="0 0 3rem " $alignItems="center" $justifyContent="space-between">
+            <Base $flexDirection="row" $alignItems="center" $gap={5} $width="fit-content" $height="100%">
                 <IoMdMenu color={"#000"} cursor={"pointer"} size={32} className="hover" onClick={changeSidebar} />
                 <Link to="/">
                     <BaseImage src={logo} $width="12rem" $height="10rem" />
