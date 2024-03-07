@@ -9,7 +9,7 @@ interface Params {
     image?: File;
 }
 
-const handleProductRegister = (params : Params) => {
+const handleProductRegister = async (params : Params) => {
     try {
         const createProduct = async () => {
             return await api.post("/product", {

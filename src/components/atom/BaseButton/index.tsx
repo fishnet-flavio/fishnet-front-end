@@ -19,6 +19,7 @@ const BaseButton = styled.button<{
     transition: .5s;
     user-select: none;
     text-align: center;
+    border: ${props => `2px solid ${props.$background}`}; 
     &:hover {
         scale: 1.01;
     }

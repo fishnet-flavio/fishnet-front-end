@@ -9,6 +9,7 @@ import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { HandleFavorite } from "./handleFavorite";
 
 interface User {
     id: number;
@@ -36,8 +37,14 @@ interface CardProps {
 const Card = (props: CardProps) => {
     const [favorite, setFavorite] = useState<boolean>(false);
 
-    const handleFavorite = () => {
-        setFavorite(!favorite)
+    interface FavProps {
+        userId: number,
+        productId: number,
+    }
+
+    const handleFavorite = (props: FavProps) => {
+        setFavorite(!favorite);
+        HandleFavorite(props);
     }
 
     const handleAddToCart = () => {
@@ -59,13 +66,13 @@ const Card = (props: CardProps) => {
                 {props.stock > 0 ? <BaseText $fontSize={16} >Estoque: {props.stock}</BaseText> : <BaseText $color="#f04" $fontWeight="bold" $fontSize={16}>Sem estoque</BaseText>}
                 <BaseText $fontSize={36} $fontWeight="bold">R$ {props.price.toFixed(2)}</BaseText>
                 <Link to={`/${props.vendor.id}/sale/${props.id}`}>
-                    <BaseButton><BaseText $userSelect="none" $color="#fff" $fontWeight="bold">Comprar</BaseText></BaseButton>
+                    <BaseButton><BaseText $userSelect="none" $fontSize={20} $color="#fff" $fontWeight="bold">Comprar</BaseText></BaseButton>
                 </Link>
             </Base>
             <Base $width="fit-content" $gap={2}>
                 {favorite ? 
-                <FaHeart cursor={"pointer"} size={32} color="#f04" onClick={handleFavorite} className="hover" /> :
-                <FaRegHeart cursor={"pointer"} size={32} onClick={handleFavorite} className="hover" />    
+                <FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite} className="hover" /> :
+                <FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite} className="hover" />    
             }
                 <MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleAddToCart} />
             </Base>

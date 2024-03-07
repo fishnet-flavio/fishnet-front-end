@@ -3,8 +3,8 @@ import shopImage from "../../assets/pirarucu.jpg"
 import Base from "../../components/atom/Base";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import Loading from "../../components/molecule/Loading";
 import BaseText from "../../components/atom/BaseText";
+import { toast } from "react-toastify";
 
 interface User {
     id: number;
@@ -42,7 +42,9 @@ const MarketPlacePage = () => {
             }
                 getData();
             } catch (e) {
-                console.error(e)
+                toast.error("Erro ao carregar os dados.", {
+                    position: "top-right"
+                });
             }
         }, [])
         

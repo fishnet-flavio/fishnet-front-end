@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Base from "../../atom/Base"
 import { IoMdHome } from "react-icons/io";
-import { FaRegUser } from "react-icons/fa6";
+import { FaUserAlt } from "react-icons/fa";
 import { FaBagShopping } from "react-icons/fa6";
 import { FaFish } from "react-icons/fa";
 import { IoIosCash } from "react-icons/io";
@@ -13,33 +13,39 @@ interface Item {
     icon: JSX.Element;
     name: string;
     link: string;
+    vendorExclusive: boolean;
 }
 
 const SidebarItems: Item[] = [
     {
         icon: <IoMdHome size={32} color="#000"/>,
         name: "Home",
-        link: "/"
+        link: "/",
+        vendorExclusive: false
     },
     {
-        icon: <FaRegUser size={32} color="#000"/>,
+        icon: <FaUserAlt size={32} color="#000"/>,
         name: "Perfil",
-        link: "/login"
+        link: "/login",
+        vendorExclusive: false
     },
     {
         icon: <FaBagShopping size={32} color="#000"/>,
         name: "Histórico",
-        link: "/login"
+        link: "/login",
+        vendorExclusive: false
     },
     {
         icon: <FaFish size={32} color="#000"/>,
         name: "Cadastrar",
-        link: `/${2}/product-register`
+        link: `/${2}/product-register`,
+        vendorExclusive: true
     },
     {
         icon: <IoIosCash size={32} color="#000"/>,
         name: "Vendas",
-        link: "/login"
+        link: "/login",
+        vendorExclusive: true
     }
 ]
 
@@ -47,14 +53,15 @@ const SideBarDiv = styled.div`
     .side-menu {
         background: #fff;
         border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
         position: fixed; 
         display: flex;
         flex-direction: column;
-        height: 100vh;
+        height: fit-content;
         gap: .5rem;
         padding: 2rem 1rem;
         width: 12rem;
-        margin: 10rem 0 0 0;
+        margin: 15rem 0 0 0;
         left: -100%;
         transition: 700ms;
     }
@@ -73,11 +80,13 @@ const SideMenuItem = styled.div`
     gap: 1.5rem; 
     justify-content: left;
     align-items: center;
-    transition: .3s;
+    transition: .4s;
     border: 1px solid #fff;
 
     &:hover {
+        transition: .2s ease-out;
         border: 1px solid #000;
+        gap: 2rem;
     }
 `
 
