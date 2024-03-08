@@ -37,14 +37,10 @@ interface CardProps {
 const Card = (props: CardProps) => {
     const [favorite, setFavorite] = useState<boolean>(false);
 
-    interface FavProps {
-        userId: number,
-        productId: number,
-    }
 
-    const handleFavorite = (props: FavProps) => {
+    const handleFavorite = (productId: number, fav: boolean) => {
         setFavorite(!favorite);
-        HandleFavorite(props);
+        HandleFavorite(productId, fav);
     }
 
     const handleAddToCart = () => {
@@ -71,9 +67,9 @@ const Card = (props: CardProps) => {
             </Base>
             <Base $width="fit-content" $gap={2}>
                 {favorite ? 
-                <FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite} className="hover" /> :
-                <FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite} className="hover" />    
-            }
+                <FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite(props.id, true)} className="hover" /> :
+                <FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite(props.id, false)} className="hover" />    
+                }
                 <MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleAddToCart} />
             </Base>
         </Base>

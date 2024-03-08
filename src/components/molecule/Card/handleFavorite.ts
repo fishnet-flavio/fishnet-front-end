@@ -1,23 +1,31 @@
 import { toast } from "react-toastify"
 import { api } from "../../../services/api";
 
-interface Params {
-    userId: number;
-    productId: number;
+interface User {
+    id: number;
+    username: string;
+    email: string;
 }
 
-export const HandleFavorite = async (params: Params) => {
-    try {
-        const favorite = async () => {
-            return await api.post("/wishlist", {
-                userId: params.userId,
-                productId: params.productId,
+export const HandleFavorite = async (productId: number, fav: boolean) => {
+    if (fav) {
+        try {
+            const favorite = async () => {
+                const user = localStorage.getItem("@fishnet:user");
+                if (user) {
+                    const userJson = JSON.parse(user) as User;
+                    return await api.post("/wishlist", {
+                        productId: productId,
+                        userId: userJson.id
+                    });
+                }
+            }
+        console.log("Favorito!");
+        return await favorite();
+        } catch (error) {
+            toast.error("Erro ao favoritar.", {
+                position: "top-right",
             });
         }
-        await favorite();
-    } catch {
-        toast.error("Erro ao favoritar.", {
-            position: "top-right",
-        });
     }
 }
