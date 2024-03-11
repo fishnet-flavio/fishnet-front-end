@@ -1,5 +1,4 @@
 import Base from "../../components/atom/Base"
-import BaseText from "../../components/atom/BaseText"
 import LoginCard from "../../components/molecule/LoginCard"
 
 const LoginPage = () => {

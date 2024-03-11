@@ -4,6 +4,8 @@ import BaseButton from "../../atom/BaseButton"
 import BaseInput from "../../atom/BaseInput"
 import BaseText from "../../atom/BaseText"
 import { FormEvent, useState } from "react"
+import logo from "../../../assets/fishnet-logo.png"
+import BaseImage from "../../atom/BaseImage"
 
 const LoginCard = () => {
 
@@ -17,6 +19,9 @@ const LoginCard = () => {
     return (
         <form>
             <Base $width="26rem" $alignItems="center" $borderRadius={16} $padding="2rem" $gap={2} $boxShadow>
+                <Link to="/">
+                        <BaseImage src={logo} $width="12rem" $height="10rem" />
+                </Link>
                 <BaseText $fontSize={24} $fontWeight="bold">Login</BaseText>
                 <Base $flexDirection="row" $gap={2} $alignItems="center">
                     <BaseText $fontSize={20} >Email: </BaseText>

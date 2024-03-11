@@ -4,6 +4,8 @@ import BaseInput from "../../atom/BaseInput";
 import BaseText from "../../atom/BaseText"
 import BaseButton from "../../atom/BaseButton";
 import { Link } from "react-router-dom";
+import BaseImage from "../../atom/BaseImage";
+import logo from "../../../assets/fishnet-logo.png";
 
 const SignInCard = () => {
     const [username, setUsername] = useState<string>("");
@@ -17,6 +19,9 @@ const SignInCard = () => {
     return (
         <form>
             <Base $width="26rem" $alignItems="center" $borderRadius={16} $padding="2rem" $gap={2} $boxShadow>
+                <Link to="/">
+                    <BaseImage src={logo} $width="12rem" $height="10rem" />
+                </Link>
                 <BaseText $fontSize={24} $fontWeight="bold">Registre-se</BaseText>
                 <Base $flexDirection="row" $gap={2} $alignItems="center">
                     <BaseText $fontSize={20} >Nome: </BaseText>

@@ -22,6 +22,7 @@ const BaseButton = styled.button<{
     border: ${props => `2px solid ${props.$background}`}; 
     &:hover {
         scale: 1.01;
+        background: #2c2c2c;
     }
 `
 
