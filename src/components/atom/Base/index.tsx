@@ -20,6 +20,7 @@ const Base = styled.div<{
     $flexWrap?: string;
     $position?: string;
     $overflowY?: string;
+    $zIndex?: number;
     }>`
     display: flex;
     position: ${props => props.$position ? props.$position : "initial"};
@@ -40,6 +41,7 @@ const Base = styled.div<{
     flex-grow: ${props => props.$flexGrow ? props.$flexGrow : "0"};
     flex-wrap: ${props => props.$flexWrap ? props.$flexWrap : "nowrap"};
     overflow-y: ${props => props.$overflowY ? props.$overflowY : "visible"};
+    z-index: ${props => props.$zIndex ? props.$zIndex : "auto"};
     
     .hover {
         transition: .5s;

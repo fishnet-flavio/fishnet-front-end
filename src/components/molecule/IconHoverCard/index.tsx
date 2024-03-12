@@ -9,25 +9,24 @@ interface Props {
 
 const HoverBase = styled.div`
     .card {
-    --width: 12rem;
-    z-index: 5;
+    --width: 10rem;
+    z-index: 2;
     background: #000;
     border-radius: 12px;
     width: var(--width);
-    left: -6rem;
+    left: -5rem;
     padding: 1rem;
     text-align: center;
-    opacity: 0%;
-    bottom: -200%;
+    bottom: -150%;
     position: absolute;
     transition-delay: 0s;
     transition: .4s ease;
+    visibility: hidden;
     }  
     &:hover {
         .card {
+            visibility: visible;
             transition-delay: 1s;
-            transition: .2 ease;
-            opacity: 100%;
         }
     }
 `

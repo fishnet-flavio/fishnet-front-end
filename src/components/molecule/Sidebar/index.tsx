@@ -51,6 +51,7 @@ const SidebarItems: Item[] = [
 
 const SideBarDiv = styled.div`
     .side-menu {
+        z-index: 3;
         background: #fff;
         border-top-right-radius: 16px;
         border-bottom-right-radius: 16px;
