@@ -10,6 +10,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { HandleFavorite } from "./handleFavorite";
+import IconHoverCard from "../IconHoverCard";
 
 interface User {
     id: number;
@@ -62,15 +63,15 @@ const Card = (props: CardProps) => {
                 {props.stock > 0 ? <BaseText $fontSize={16} >Estoque: {props.stock}</BaseText> : <BaseText $color="#f04" $fontWeight="bold" $fontSize={16}>Sem estoque</BaseText>}
                 <BaseText $fontSize={36} $fontWeight="bold">R$ {props.price.toFixed(2)}</BaseText>
                 <Link to={`/${props.vendor.id}/sale/${props.id}`}>
-                    <BaseButton><BaseText $userSelect="none" $fontSize={20} $color="#fff" $fontWeight="bold">Comprar</BaseText></BaseButton>
+                    <BaseButton><BaseText $userSelect="none" $fontSize={20} $color="#fff" $fontWeight="bold">Ver mais</BaseText></BaseButton>
                 </Link>
             </Base>
             <Base $width="fit-content" $gap={2}>
                 {favorite ? 
-                <FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite(props.id, true)} className="hover" /> :
-                <FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite(props.id, false)} className="hover" />    
+                <IconHoverCard icon={<FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite(props.id, true)} className="hover" />} hoverText="Desfavoritar" />:
+                <IconHoverCard icon={<FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite(props.id, false)} className="hover" /> } hoverText="Favoritar" />
                 }
-                <MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleAddToCart} />
+                <IconHoverCard icon={<MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleAddToCart} />} hoverText="Adcionar no carrinho"/>
             </Base>
         </Base>
     )

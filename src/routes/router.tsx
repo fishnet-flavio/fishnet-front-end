@@ -19,7 +19,7 @@ const router = createBrowserRouter([
             {path: "", element: <Page />, children: [
                 {path: "", element: <MarketPlacePage />},
                     {path: ":vendorId", children: [
-                        {path: "sale/:saleId", element: <ProductPage />},
+                        {path: "sale/:productId", element: <ProductPage />},
                         {path: "product-register", element: <ProductRegisterPage />}]},
                         
                     {path: ":userId", children: [
