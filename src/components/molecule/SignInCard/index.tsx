@@ -49,7 +49,7 @@ const SignInCard = () => {
                         <BaseText $fontWeight="bold">Logue aqui</BaseText>
                     </Link>
                 </Base>
-                <BaseButton type="submit" onSubmit={(event) => {handleRegister(event)}}><BaseText $userSelect="none" $color="#fff" $fontSize={24} $fontWeight="bold">Enviar</BaseText></BaseButton>
+                <BaseButton type="submit" onSubmit={(event) => {handleRegister(event)}}>Enviar</BaseButton>
             </Base>
         </form>
     )

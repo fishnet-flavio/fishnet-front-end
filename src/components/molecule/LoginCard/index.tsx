@@ -37,7 +37,7 @@ const LoginCard = () => {
                         <BaseText $fontWeight="bold">Crie aqui</BaseText>
                     </Link>
                 </Base>
-                <BaseButton type="submit" onSubmit={(event) => {handleLogin(event)}}><BaseText $userSelect="none" $color="#fff" $fontSize={24} $fontWeight="bold">Enviar</BaseText></BaseButton>
+                <BaseButton type="submit" onSubmit={(event) => {handleLogin(event)}}>Enviar</BaseButton>
             </Base>
         </form>
     )

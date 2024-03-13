@@ -59,7 +59,7 @@ const ProductRegisterPage = () => {
                         <BaseText>Imagem do Produto: </BaseText>
                         <BaseInput $width="90%" type="file" accept="image/png, image/jpeg"/>
                     </label>
-                    <BaseButton type="submit"><BaseText $color="#fff" $fontWeight="bold" $fontSize={24}>Enviar</BaseText></BaseButton>
+                    <BaseButton type="submit">Enviar</BaseButton>
                 </form>
             </Base>
         </Base>

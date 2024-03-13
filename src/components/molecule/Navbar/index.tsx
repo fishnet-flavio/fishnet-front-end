@@ -8,6 +8,7 @@ import BaseImage from "../../atom/BaseImage";
 import logo from "../../../assets/fishnet-logo.png";
 import { useState } from "react";
 import Sidebar from "../Sidebar";
+import IconHoverCard from "../IconHoverCard";
 
 interface User {
     id: string;

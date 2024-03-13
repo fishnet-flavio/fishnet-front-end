@@ -15,14 +15,18 @@ const BaseButton = styled.button<{
     border: ${props => props.$border ? props.$border : "none"};
     background: ${props => props.$background ? props.$background : "#000"};
     cursor: pointer;
-    box-shadow: "10px 5px 5px #EAE9E8";
+    color: #fff;
+    font-size: 20px;
+    border: 2px solid #000;
+    box-shadow: "10px 5px 5px #d1cfce";
+    font-weight: bold;
     transition: .5s;
     user-select: none;
     text-align: center;
     border: ${props => `2px solid ${props.$background}`}; 
     &:hover {
-        scale: 1.01;
-        background: #2c2c2c;
+        background: #fff;
+        color: #000;
     }
 `
 

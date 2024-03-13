@@ -35,7 +35,7 @@ const MarketPlacePage = () => {
         try {
             const getData = async () => {
                 const fetchProducts = async () => {
-                    const response = await api.get("product");
+                    const response = await api.get("product", {maxContentLength: 20});
                     setProducts(response.data);
                 }
                 await fetchProducts();

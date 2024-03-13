@@ -42,7 +42,7 @@ const Base = styled.div<{
     flex-wrap: ${props => props.$flexWrap ? props.$flexWrap : "nowrap"};
     overflow-y: ${props => props.$overflowY ? props.$overflowY : "visible"};
     z-index: ${props => props.$zIndex ? props.$zIndex : "auto"};
-    
+
     .hover {
         transition: .5s;
         &:hover {

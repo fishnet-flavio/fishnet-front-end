@@ -9,15 +9,16 @@ interface Props {
 
 const HoverBase = styled.div`
     .card {
-    --width: 10rem;
+    --width: 12rem;
     z-index: 2;
     background: #000;
     border-radius: 12px;
     width: var(--width);
-    left: -5rem;
-    padding: 1rem;
+    left: calc((var(--width)/2 *-1) + .5rem);
+    align-self: center;
+    padding: 1rem .2rem;
     text-align: center;
-    bottom: -150%;
+    bottom: -160%;
     position: absolute;
     transition-delay: 0s;
     transition: .4s ease;
