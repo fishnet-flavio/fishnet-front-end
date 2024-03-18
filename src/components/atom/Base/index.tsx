@@ -19,6 +19,7 @@ const Base = styled.div<{
     $maxWidth?: string;
     $flexWrap?: string;
     $position?: string;
+    $overflowX?: string;
     $overflowY?: string;
     $zIndex?: number;
     }>`
@@ -40,6 +41,7 @@ const Base = styled.div<{
     flex-direction: ${props => props.$flexDirection ? props.$flexDirection : "column"};
     flex-grow: ${props => props.$flexGrow ? props.$flexGrow : "0"};
     flex-wrap: ${props => props.$flexWrap ? props.$flexWrap : "nowrap"};
+    overflow-x: ${props => props.$overflowX ? props.$overflowX : "visible"};
     overflow-y: ${props => props.$overflowY ? props.$overflowY : "visible"};
     z-index: ${props => props.$zIndex ? props.$zIndex : "auto"};
 

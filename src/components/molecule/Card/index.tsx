@@ -11,6 +11,7 @@ import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { HandleFavorite } from "./handleFavorite";
 import IconHoverCard from "../IconHoverCard";
+import { styled } from "styled-components";
 
 interface User {
     id: number;
@@ -32,8 +33,51 @@ interface CardProps {
     vendor: Vendor;
     price: number;
     description: string;
+    mini?: boolean;
 }
 
+const CardBase = styled.div<{
+    $mini?: boolean;
+}>`
+    width: 80%;
+    scroll-snap-align: center;
+    background: #fff;
+    margin: auto;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    padding: 2rem;
+    gap: 4rem;
+    box-shadow: 10px 5px 5px #d1cfce;
+    border-radius: 16px;
+
+    ${
+        props => props.$mini &&
+            `
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
+            `
+    }
+
+    @media (max-width: 800px) {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+`
+const IconBase = styled.div`
+    display: flex;
+    width: fit-content;
+    gap: 2rem;
+    flex-direction: column;
+    @media (max-width: 800px) {
+        flex-direction: row;
+    }
+`
 
 const Card = (props: CardProps) => {
     const [favorite, setFavorite] = useState<boolean>(false);
@@ -51,7 +95,7 @@ const Card = (props: CardProps) => {
     }
 
     return (
-        <Base $width="45rem" $margin="4rem 0 0 0" $justifyContent="space-between" $flexDirection="row" $padding="2rem" $gap={4} $boxShadow $borderRadius={16} >
+        <CardBase $mini={props.mini}>
             <Base $width="fit-content" $height="max-content" $gap={2}>
                 <BaseImage src={props.imageUrl} $width="16rem" $height="12rem" />
                 <VendorCard vendorImageUrl={props.vendor.user.imageUrl ? props.vendor.user.imageUrl : shopImage} vendorName={props.vendor.user.name} />
@@ -69,17 +113,17 @@ const Card = (props: CardProps) => {
                 }
                 <BaseText $fontSize={36} $fontWeight="bold">R$ {props.price.toFixed(2)}</BaseText>
                 <Link to={`/${props.vendor.id}/sale/${props.id}`}>
-                    <BaseButton>Ver mais</BaseButton>
+                    <BaseButton onClick={() => window.scrollTo(0,0)}>Ver mais</BaseButton>
                 </Link>
             </Base>
-            <Base $width="fit-content" $gap={2}>
+            <IconBase>
                 {favorite ? 
                 <IconHoverCard icon={<FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite(props.id, false)} className="hover" />} hoverText="Desfavoritar" />:
                 <IconHoverCard icon={<FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite(props.id, true)} className="hover" /> } hoverText="Favoritar" />
                 }
                 <IconHoverCard icon={<MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleAddToCart} />} hoverText="Adicionar no carrinho"/>
-            </Base>
-        </Base>
+            </IconBase>
+        </CardBase>
     )
 }
 
