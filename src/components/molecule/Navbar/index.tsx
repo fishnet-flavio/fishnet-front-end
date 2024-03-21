@@ -7,6 +7,7 @@ import { IoMdMenu } from "react-icons/io";
 import BaseImage from "../../atom/BaseImage";
 import logo from "../../../assets/fishnet-logo.png";
 import { useState } from "react";
+import { styled } from "styled-components";
 import Sidebar from "../Sidebar";
 import IconHoverCard from "../IconHoverCard";
 
@@ -15,6 +16,25 @@ interface User {
     name: string,
     userPhoto?: string
 }
+
+const NavItem = styled.span`
+    &::after {
+        content: "";
+        display: block;
+        border-radius: 2px;
+        margin-top: 2px;
+        background: #000;
+        height: 4px;
+        width: 100%;
+        transform: scaleX(0);
+        transition: .3s;
+        transform-origin: center;
+    }
+
+    &:hover::after {
+        transform: scaleX(1);
+    }
+`
 
 const Navbar = () => {
     const currentUser: User = {name: "user", id: "user123"};
@@ -30,18 +50,26 @@ const Navbar = () => {
             <Base $flexDirection="row" $alignItems="center" $gap={5} $width="fit-content" $height="100%">
                 <IoMdMenu color={"#000"} cursor={"pointer"} size={32} className="hover" onClick={changeSidebar} />
                 <Link to="/">
-                    <BaseImage src={logo} $width="12rem" $height="10rem" />
+                    <NavItem>
+                        <BaseImage src={logo} $width="12rem" $height="10rem" />
+                    </NavItem>
                 </Link>
             </Base>
             <Base $width="fit-content" $flexDirection="row" $alignItems="center" $gap={5} $margin="0 6rem 0 0" >
                 <Link to={`${currentUser.id}/wishlist`}>
-                    <BaseText $fontSize={20} className="hover" >Lista de Desejos</BaseText>
+                    <NavItem>
+                        <BaseText $fontSize={20} >Lista de Desejos</BaseText>
+                    </NavItem>
                 </Link>
                 <Link to={`${currentUser.id}/shopping-cart`}>
-                    <FaShoppingCart color={"#000"} cursor={"pointer"} size={32} className="hover" />
+                    <NavItem>
+                        <FaShoppingCart color={"#000"} cursor={"pointer"} size={32} />
+                    </NavItem>
                 </Link>
                 <Link to={currentUser ? `${currentUser.id}/profile` : "/login"}>
-                    <FaRegUserCircle color={"#000"} cursor={"pointer"} size={32} className="hover" />
+                    <NavItem>
+                        <FaRegUserCircle color={"#000"} cursor={"pointer"} size={32} />
+                    </NavItem>
                 </Link>
             </Base>
         </Base>

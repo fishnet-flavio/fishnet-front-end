@@ -39,6 +39,7 @@ interface CardProps {
 const CardBase = styled.div<{
     $mini?: boolean;
 }>`
+    position: relative;
     width: 80%;
     scroll-snap-align: center;
     background: #fff;
@@ -51,6 +52,28 @@ const CardBase = styled.div<{
     gap: 4rem;
     box-shadow: 10px 5px 5px #d1cfce;
     border-radius: 16px;
+
+    &::before {
+        content: "";
+        z-index: -1;
+        border-radius: 16px;
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        transition: .3s;
+        animation: animate 2s infinite;
+    }
+
+    @keyframes animate {
+        
+    }
+
+    &:hover::before {
+        transform: scale(1.01);
+    }
 
     ${
         props => props.$mini &&
