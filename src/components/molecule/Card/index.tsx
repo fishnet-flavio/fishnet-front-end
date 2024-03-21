@@ -44,13 +44,16 @@ const CardBase = styled.div<{
     scroll-snap-align: center;
     background: #fff;
     margin: auto;
+    z-index: 1;
     justify-content: space-between;
     display: flex;
     flex-direction: row;
     flex-shrink: 0;
     padding: 2rem;
     gap: 4rem;
+    
     border-radius: 16px;
+    overflow: hidden;
     transition: 1s;
 
     &:hover {
@@ -61,55 +64,69 @@ const CardBase = styled.div<{
         content: "";
         z-index: -1;
         border-radius: 18px;
-        background: linear-gradient(90deg, rgba(67, 60, 128, 1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        background: #fff;
         position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
+        width: 120%;
+        height: 50%;
+        left: -10%;
+        top: 30%;
         transition: .3s;
-        animation: animate 2s ease infinite;
     }
 
     &:hover::before {
-        padding: 0 .2rem;
-        left: -.2rem;
-        transform: scaleX(1.01);
-        transform: scaleY(1.01);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        transform: scale(1.3);
+        animation: rotate 4s ease infinite;
     }
 
-    @keyframes animate {
-        50% {
-            filter: hue-rotate(180deg);
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 5px;
+        background: #fff;
+        border-radius: 16px;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
         }
     }
 
     ${
         props => props.$mini &&
             `
-                margin-top: 2rem;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 1rem;
+                box-shadow: 10px 5px 5px #d1cfce;
             `
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 880px) {
         margin-top: 2rem;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding: 2rem 3rem;
         gap: 1rem;
+
+        &::before {
+            top: 25%;
+            left: -50%;
+            width: 200%;
+        }
     }
 `
 const IconBase = styled.div`
     display: flex;
     width: fit-content;
+    z-index: 1;
     gap: 2rem;
     flex-direction: column;
-    @media (max-width: 800px) {
+    @media (max-width: 880px) {
         flex-direction: row;
+        margin-top: 1rem;
     }
 `
 
@@ -130,12 +147,12 @@ const Card = (props: CardProps) => {
 
     return (
         <CardBase $mini={props.mini}>
-            <Base $width="fit-content" $height="max-content" $gap={2}>
+            <Base $width="fit-content" $height="max-content" $gap={2} $zIndex={1}>
                 <BaseImage src={props.imageUrl} $width="16rem" $height="12rem" />
                 <VendorCard vendorImageUrl={props.vendor.user.imageUrl ? props.vendor.user.imageUrl : shopImage} vendorName={props.vendor.user.name} />
                 <BaseText>Avaliação do vendedor:</BaseText> <BaseText $fontWeight="bold" $fontSize={32} $color={props.vendor.rating >= 70 ? "#09e409a6" : "#fb0" }>{props.vendor.rating}</BaseText>
             </Base>
-            <Base $gap={2} $height="max-content" $maxWidth="100%">
+            <Base $gap={2} $height="max-content" $maxWidth="100%" $zIndex={1}>
                 <BaseText $fontSize={24} $fontWeight="bold">{props.name}</BaseText>
                 <Base $overflowY="scroll" $boxSizing="content-box" $maxHeight="15rem" $padding="0 2rem 0 0">
                     <BaseText $textAlign="justify">{props.description}</BaseText>

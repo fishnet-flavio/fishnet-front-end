@@ -3,63 +3,44 @@ import Base from "../../atom/Base"
 import { IoMdHome } from "react-icons/io";
 import { FaUserAlt } from "react-icons/fa";
 import { FaBagShopping } from "react-icons/fa6";
-import { FaFish } from "react-icons/fa";
+import { FaFish, FaShoppingCart, FaHeart } from "react-icons/fa";
 import { IoIosCash } from "react-icons/io";
 import BaseText from "../../atom/BaseText";
 import styled from "styled-components";
+import { useState } from "react";
 
 
 interface Item {
     icon: JSX.Element;
     name: string;
     link: string;
-    vendorExclusive: boolean;
+    responsive: boolean;
 }
 
-const SidebarItems: Item[] = [
-    {
-        icon: <IoMdHome size={32} color="#000"/>,
-        name: "Home",
-        link: "/",
-        vendorExclusive: false
-    },
-    {
-        icon: <FaUserAlt size={32} color="#000"/>,
-        name: "Perfil",
-        link: "/login",
-        vendorExclusive: false
-    },
-    {
-        icon: <FaBagShopping size={32} color="#000"/>,
-        name: "Histórico",
-        link: "/login",
-        vendorExclusive: false
-    },
-    {
-        icon: <FaFish size={32} color="#000"/>,
-        name: "Cadastrar",
-        link: `/${2}/product-register`,
-        vendorExclusive: true
-    },
-    {
-        icon: <IoIosCash size={32} color="#000"/>,
-        name: "Vendas",
-        link: "/login",
-        vendorExclusive: true
-    }
-]
+interface User {
+    id: number;
+    name: string;
+    userPhoto?: string;
+    vendor?: Vendor;
+}
+
+interface Vendor {
+    id?: number;
+    user?: User;
+    rating?: number;
+}
+
 
 const SideBarDiv = styled.div`
     .side-menu {
         z-index: 3;
-        background: #fff;
+        background: rgba(255,255,255, .9);
         border-top-right-radius: 16px;
         border-bottom-right-radius: 16px;
         position: fixed; 
         display: flex;
         flex-direction: column;
         height: fit-content;
-        gap: .5rem;
         padding: 2rem 1rem;
         width: 12rem;
         margin: 15rem 0 0 0;
@@ -71,10 +52,19 @@ const SideBarDiv = styled.div`
         left: 0;
         transition: 350ms;
     }
+
+    .responsive {
+        display: none;
+
+        @media (max-width: 650px) {
+            display: flex;
+        }
+    }
 `
 
 const SideMenuItem = styled.div`
     padding: 4px 0 4px .5rem;
+    margin-top: .5rem;
     width: 80%;
     border-radius: 8px;
     display: flex;
@@ -113,13 +103,74 @@ interface SidebarProps {
 }
 
 const Sidebar = (props: SidebarProps) => {
+
+    const [currentUser, setCurrentUser] = useState<User>({id: 123, name: "Natan"});
+
+    const SidebarUserItems: Item[] = [
+        {
+            icon: <IoMdHome size={32} color="#000"/>,
+            name: "Home",
+            link: "/",
+            responsive: false
+        },
+        {
+            icon: <FaUserAlt size={32} color="#000"/>,
+            name: "Perfil",
+            link: "/login",
+            responsive: true
+        },
+        {
+            icon: <FaShoppingCart size={32} color="#000"/>,
+            name: "Carrinho",
+            link: `/${currentUser.id}/shopping-cart`,
+            responsive: true
+        },
+        {
+            icon: <FaHeart size={32} color="#000"/>,
+            name: "Favoritos",
+            link: "/",
+            responsive: true
+        },
+        {
+            icon: <FaBagShopping size={32} color="#000"/>,
+            name: "Histórico",
+            link: "/login",
+            responsive: false
+        },
+    ]
+
+    const SidebarVendorItems: Item[] = [
+        {
+            icon: <FaFish size={32} color="#000"/>,
+            name: "Cadastrar",
+            link: `/${currentUser.vendor?.id}/product-register`,
+            responsive: false
+        },
+        {
+            icon: <IoIosCash size={32} color="#000"/>,
+            name: "Vendas",
+            link: "/login",
+            responsive: false
+        }
+    ]
+
     return (
         <SideBarDiv>
             <Base className={props.active ? "side-menu active" : "side-menu"}>
-            {SidebarItems.map(
+            {SidebarUserItems.map(
                 item => 
                 <Link key={item.name} to={item.link} >
-                    <SideMenuItem>
+                    <SideMenuItem className={`${item.responsive ? "responsive" : ""}`}>
+                        {item.icon}
+                        <BaseText $color="#000" $fontWeight="bold">{item.name}</BaseText>
+                    </SideMenuItem>
+                </Link>
+            )}
+            {currentUser.vendor &&
+            SidebarVendorItems.map(
+                item => 
+                <Link key={item.name} to={item.link} >
+                    <SideMenuItem className={`${item.responsive ? "responsive" : ""}`}>
                         {item.icon}
                         <BaseText $color="#000" $fontWeight="bold">{item.name}</BaseText>
                     </SideMenuItem>

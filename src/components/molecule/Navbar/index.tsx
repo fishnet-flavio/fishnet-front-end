@@ -9,7 +9,6 @@ import logo from "../../../assets/fishnet-logo.png";
 import { useState } from "react";
 import { styled } from "styled-components";
 import Sidebar from "../Sidebar";
-import IconHoverCard from "../IconHoverCard";
 
 interface User {
     id: string;
@@ -17,47 +16,73 @@ interface User {
     userPhoto?: string
 }
 
+interface Vendor {
+    id: number;
+    user: User
+    rating: number;
+}
+
 const NavBase = styled.div`
     z-index: 3;
     display: flex;
-    background: #fff;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background: rgba(255,255,255, .9);
     width: 100%;
     position: fixed;
     overflow-y: clip;
     flex-direction: row;
     height: 6rem;
-    padding: 1rem 4rem;
-    margin: 0 0 3rem;
+    padding: 4rem 2rem;
     align-items: center;
     justify-content: space-between;
 
     @media (max-width: 850px) {
-        padding: 2rem 4rem;
+        height: fit-content;
+        padding: 0 2rem;
+
+        .logo {
+            gap: 1.5rem;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .logo {
+            width: 100%;
+            justify-content: left;
+            gap: 4rem;
+        }
     }
 `
 const IconList = styled.div`
     width: fit-content;
     display: flex;
-    background: #fff;
+    background: transparent;
     flex-direction: row;
     align-items: center;
     gap: 5rem;
-    margin: 0 6rem 0 0;
 
     @media (max-width: 850px) {
         h2 {
             visibility: hidden;
         }
-        margin-top: 1rem;
-        gap: 4px;
-        flex-direction: column;
+        gap: 1rem;
+    }
+
+    @media (max-width: 650px) {
+        display: none;
     }
 `
 
 const NavItem = styled.span`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     &::after {
         content: "";
         display: block;
+        background: rgba(255,255,255, .9);
         border-radius: 2px;
         margin-top: 2px;
         background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
@@ -70,6 +95,12 @@ const NavItem = styled.span`
 
     &:hover::after {
         transform: scaleX(1);
+    }
+
+    @media (max-width: 850px) {
+        .label {
+            visibility: hidden;
+        }
     }
 `
 
@@ -85,7 +116,7 @@ const Navbar = () => {
     return (
     <>
         <NavBase>
-            <Base $flexDirection="row" $alignItems="center" $gap={2} $width="fit-content" $height="100%">
+            <Base $background="transparent" className="logo" $flexDirection="row" $alignItems="center" $gap={3} $width="fit-content" $height="100%">
                 <IoMdMenu color={"#000"} cursor={"pointer"} size={32} className="hover" onClick={changeSidebar} />
                 <Link to="/">
                     <BaseImage src={logo} $width="12rem" $height="10rem" />
@@ -95,16 +126,19 @@ const Navbar = () => {
                 <Link to={`${currentUser.id}/wishlist`}>
                     <NavItem>
                         <FaHeart cursor={"pointer"} size={32} color="#000" />
+                        <BaseText className="label">Favoritos</BaseText>
                     </NavItem>
                 </Link>
                 <Link to={`${currentUser.id}/shopping-cart`}>
                     <NavItem>
                         <FaShoppingCart color={"#000"} cursor={"pointer"} size={32} />
+                        <BaseText className="label">Meu carrinho</BaseText>
                     </NavItem>
                 </Link>
                 <Link to={currentUser ? `${currentUser.id}/profile` : "/login"}>
                     <NavItem>
                         <FaRegUserCircle color={"#000"} cursor={"pointer"} size={32} />
+                        <BaseText className="label">Perfil</BaseText>
                     </NavItem>
                 </Link>
             </IconList>

@@ -44,7 +44,7 @@ const ProductsBase = styled.div`
     padding: 2rem 0 1rem 2rem;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
-    
+
 `
 
 const TextSeparator = styled.h2`
@@ -146,6 +146,7 @@ const ProductPage = () => {
                                 price={p.price}
                                 stock={p.stock}
                                 vendor={p.vendor}
+                                mini={true}
                                 imageUrl=""
                             />)}
                     </ProductsBase> :

@@ -8,21 +8,23 @@ interface Props {
 }
 
 const HoverBase = styled.div`
+    position: relative;
     .card {
-    --width: 12rem;
-    z-index: 2;
-    background: #000;
-    border-radius: 12px;
-    width: var(--width);
-    left: calc((var(--width)/2 *-1) + .5rem);
-    align-self: center;
-    padding: 1rem .2rem;
-    text-align: center;
-    bottom: -160%;
-    position: absolute;
-    transition-delay: 0s;
-    transition: .4s ease;
-    visibility: hidden;
+        position: absolute;
+        --width: 12rem;
+        z-index: 5;
+        background: #000;
+        border-radius: 12px;
+        width: var(--width);
+        top: -25%;
+        left: calc((var(--width)/2 *-1) *2.2);
+        align-self: center;
+        padding: 1rem .2rem;
+        text-align: center;
+        position: absolute;
+        transition-delay: 0s;
+        transition: .4s ease;
+        visibility: hidden;
     }  
     &:hover {
         .card {
