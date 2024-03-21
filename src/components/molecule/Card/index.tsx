@@ -66,7 +66,7 @@ const CardBase = styled.div<{
         border-radius: 18px;
         background: #fff;
         position: absolute;
-        width: 120%;
+        width: 140%;
         height: 50%;
         left: -10%;
         top: 30%;
@@ -75,7 +75,7 @@ const CardBase = styled.div<{
 
     &:hover::before {
         background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
-        transform: scale(1.3);
+        transform: scale(1.4);
         animation: rotate 4s ease infinite;
     }
 
@@ -115,6 +115,12 @@ const CardBase = styled.div<{
             top: 25%;
             left: -50%;
             width: 200%;
+        }
+    }
+
+    @media (max-width: 570px) {
+        &::before {
+            visibility: hidden;
         }
     }
 `
