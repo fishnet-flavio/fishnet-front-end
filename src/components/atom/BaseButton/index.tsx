@@ -20,6 +20,7 @@ const BaseButton = styled.button<{
     border: 2px solid #000;
     box-shadow: "10px 5px 5px #d1cfce";
     font-weight: bold;
+    text-transform: capitalize;
     transition: .5s;
     user-select: none;
     text-align: center;
@@ -27,6 +28,7 @@ const BaseButton = styled.button<{
     &:hover {
         background: #fff;
         color: #000;
+        font-size: 24px;
     }
 `
 

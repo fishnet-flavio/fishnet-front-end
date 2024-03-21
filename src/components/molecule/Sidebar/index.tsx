@@ -74,20 +74,37 @@ const SideBarDiv = styled.div`
 `
 
 const SideMenuItem = styled.div`
-    padding: 4px .5rem;
+    padding: 4px 0 4px .5rem;
+    width: 80%;
     border-radius: 8px;
     display: flex;
+    position: relative;
     flex-direction: row; 
     gap: 1.5rem; 
     justify-content: left;
     align-items: center;
     transition: .4s;
-    border: 1px solid #fff;
 
     &:hover {
-        transition: .2s ease-out;
-        border: 1px solid #000;
-        gap: 2rem;
+        transform: translateX(20px);
+    }
+
+    &::before {
+        content: "";
+        border-radius: 2px;
+        position: absolute;
+        background: #000;
+        display: inline-block;
+        height: 80%;
+        width: 4px;
+        transform: translateX(-40px);
+        opacity: 0;
+        transition: .3s ease;
+    }
+
+    &:hover::before {
+        opacity: 100%;
+        transform: translateX(-20px);
     }
 `
 

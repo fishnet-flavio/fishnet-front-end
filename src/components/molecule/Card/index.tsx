@@ -50,34 +50,44 @@ const CardBase = styled.div<{
     flex-shrink: 0;
     padding: 2rem;
     gap: 4rem;
-    box-shadow: 10px 5px 5px #d1cfce;
     border-radius: 16px;
+    transition: 1s;
+
+    &:hover {
+        transition: .3s;
+    }
 
     &::before {
         content: "";
         z-index: -1;
-        border-radius: 16px;
-        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        border-radius: 18px;
+        background: linear-gradient(90deg, rgba(67, 60, 128, 1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
         position: absolute;
         width: 100%;
         height: 100%;
         left: 0;
         top: 0;
         transition: .3s;
-        animation: animate 2s infinite;
-    }
-
-    @keyframes animate {
-        
+        animation: animate 2s ease infinite;
     }
 
     &:hover::before {
-        transform: scale(1.01);
+        padding: 0 .2rem;
+        left: -.2rem;
+        transform: scaleX(1.01);
+        transform: scaleY(1.01);
+    }
+
+    @keyframes animate {
+        50% {
+            filter: hue-rotate(180deg);
+        }
     }
 
     ${
         props => props.$mini &&
             `
+                margin-top: 2rem;
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
@@ -86,6 +96,7 @@ const CardBase = styled.div<{
     }
 
     @media (max-width: 800px) {
+        margin-top: 2rem;
         flex-direction: column;
         align-items: center;
         text-align: center;
@@ -126,7 +137,7 @@ const Card = (props: CardProps) => {
             </Base>
             <Base $gap={2} $height="max-content" $maxWidth="100%">
                 <BaseText $fontSize={24} $fontWeight="bold">{props.name}</BaseText>
-                <Base $overflowY="scroll" $maxHeight="15rem" $padding="0 2rem 0 0">
+                <Base $overflowY="scroll" $boxSizing="content-box" $maxHeight="15rem" $padding="0 2rem 0 0">
                     <BaseText $textAlign="justify">{props.description}</BaseText>
                 </Base>
                 {

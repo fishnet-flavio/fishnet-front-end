@@ -49,7 +49,7 @@ const MarketPlacePage = () => {
         }, [])
         
         return (
-            <Base $background="transparent" $flexDirection="row" $justifyContent="space-around" $flexWrap="wrap" $gap={2}>
+            <Base $background="transparent" $flexDirection="row" $justifyContent="space-around" $flexWrap="wrap" $zIndex={1} $gap={2}>
                 {
                     products.length > 0 ? (
                         products.map(p => 

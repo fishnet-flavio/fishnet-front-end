@@ -41,9 +41,26 @@ const ProductsBase = styled.div`
     flex-direction: row; 
     gap: 4rem;
     margin: 0 2rem; 
-    padding: 0 0 1rem 2rem;
+    padding: 2rem 0 1rem 2rem;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
+    
+`
+
+const TextSeparator = styled.h2`
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+
+    &::after {
+        content: "";
+        display: block;
+        background: #000;
+        height: 4px;
+        border-radius: 2px;
+        margin: 2rem auto 0 auto;
+        width: 90%;
+    }
 `
 
 const ProductPage = () => {
@@ -100,7 +117,7 @@ const ProductPage = () => {
     }
     console.log(product.vendor)
     return (
-        <Base $gap={2} $background="transparent">
+        <Base $gap={2} $background="transparent" $zIndex={1}>
             <Base $borderRadius={12} $height="fit-content" $padding="2rem 6rem 8rem 2rem" $width="full">
                 <Base $justifyContent="space-between" $flexDirection="row">
                     <Base $alignItems="center" $width="50%" $gap={4} $justifyContent="space-between">
@@ -115,8 +132,8 @@ const ProductPage = () => {
                     </Base>
                 </Base>
             </Base>
-            <Base $borderRadius={12} $height="fit-content" $padding="2rem 6rem 16rem 2rem" $width="full" $gap={8} >
-                <BaseText $textAlign="center" $fontWeight="bold" $fontSize={24} >Mais do mesmo vendedor:</BaseText>
+            <Base $borderRadius={12} $height="fit-content" $padding="4rem 2rem 16rem 2rem" $width="full" $gap={8} $zIndex={1} >
+                <TextSeparator>Mais do mesmo vendedor:</TextSeparator>
                 {
                     otherProducts ?
                     <ProductsBase> 

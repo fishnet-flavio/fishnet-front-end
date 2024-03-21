@@ -10,6 +10,7 @@ const Base = styled.div<{
     $width?: string; 
     $background?: string;
     $borderRadius?: number;
+    $boxSizing?: string;
     $boxShadow?: boolean;
     $alignItems?: string;
     $justifyContent?: string;
@@ -34,7 +35,7 @@ const Base = styled.div<{
     min-height: ${props=> props.$minHeight ? props.$minHeight : "auto"};
     background: ${props => props.$background ? props.$background : "#fff"};
     border-radius: ${props => props.$borderRadius ? `${props.$borderRadius}px` : 0};
-    box-shadow: ${props => props.$boxShadow ? "10px 5px 5px #d1cfce" : ""};
+    box-shadow: ${props => props.$boxShadow ? "none" : "none"};
     align-items: ${props => props.$alignItems ? props.$alignItems : ""};
     justify-content: ${props => props.$justifyContent ? props.$justifyContent : ""};
     gap: ${props => props.$gap ? `${props.$gap}rem` : "0"};
@@ -44,6 +45,11 @@ const Base = styled.div<{
     overflow-x: ${props => props.$overflowX ? props.$overflowX : "visible"};
     overflow-y: ${props => props.$overflowY ? props.$overflowY : "visible"};
     z-index: ${props => props.$zIndex ? props.$zIndex : "auto"};
+    box-sizing: ${props => props.$boxSizing ? props.$boxSizing : "initial"};
+    &::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
 
     .hover {
         transition: .5s;
