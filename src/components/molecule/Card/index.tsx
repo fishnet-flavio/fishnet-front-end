@@ -100,6 +100,7 @@ const CardBase = styled.div<{
         props => props.$mini &&
             `
                 box-shadow: 10px 5px 5px #d1cfce;
+                height: 100%;
             `
     }
 

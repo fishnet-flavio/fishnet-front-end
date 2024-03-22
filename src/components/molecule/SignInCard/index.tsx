@@ -18,7 +18,7 @@ const SignInCard = () => {
 
     return (
         <form>
-            <Base $width="26rem" $alignItems="center" $borderRadius={16} $padding="2rem" $gap={2} $boxShadow>
+            <Base $width="26rem" $alignItems="center" $borderRadius={16} $padding="2rem" $gap={2} >
                 <Link to="/">
                     <BaseImage src={logo} $width="12rem" $height="10rem" />
                 </Link>
