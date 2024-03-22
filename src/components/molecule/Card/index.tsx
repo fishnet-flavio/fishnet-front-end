@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Base from "../../atom/Base"
 import BaseButton from "../../atom/BaseButton";
 import BaseImage from "../../atom/BaseImage";
