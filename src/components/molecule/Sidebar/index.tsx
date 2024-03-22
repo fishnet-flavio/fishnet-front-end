@@ -104,7 +104,7 @@ interface SidebarProps {
 
 const Sidebar = (props: SidebarProps) => {
 
-    const [currentUser, setCurrentUser] = useState<User>({id: 123, name: "Natan"});
+    const [currentUser, setCurrentUser] = useState<User>({id: 123, name: "Natan", vendor: {}});
 
     const SidebarUserItems: Item[] = [
         {

@@ -68,7 +68,7 @@ const CardBase = styled.div<{
         position: absolute;
         width: 140%;
         height: 50%;
-        left: -10%;
+        left: -20%;
         top: 30%;
         transition: .3s;
     }
