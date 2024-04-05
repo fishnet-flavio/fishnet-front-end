@@ -23,13 +23,13 @@ const LoginCard = () => {
                         <BaseImage src={logo} $width="12rem" $height="10rem" />
                 </Link>
                 <BaseText $fontSize={24} $fontWeight="bold">Login</BaseText>
-                <Base $flexDirection="row" $gap={2} $alignItems="center">
+                <Base $flexDirection="row" $gap={2} $alignItems="center" $justifyContent="space-between">
                     <BaseText $fontSize={20} >Email: </BaseText>
-                    <BaseInput $width="100%" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Nome de email" />
+                    <BaseInput $width="17.5rem" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email" />
                 </Base>
-                <Base $flexDirection="row" $gap={2} $alignItems="center">
+                <Base $flexDirection="row" $gap={2} $alignItems="center" $justifyContent="space-between">
                     <BaseText $fontSize={20}>Senha: </BaseText>
-                    <BaseInput $width="100%" placeholder="Senha" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+                    <BaseInput $width="17.5rem" placeholder="Senha" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
                 </Base>
                 <Base $flexDirection="row" $gap={1} $justifyContent="center">
                     <BaseText>Não possui conta?</BaseText>
