@@ -12,8 +12,10 @@ const BaseInput = styled.input<{
     height: ${props => props.$height ? props.$height : "1rem"};
     padding: ${props => props.$padding ? props.$padding : "1rem 1rem"};
     margin: ${props => props.$margin ? props.$margin : "0"};
-    background: ${props => props.$background ? props.$background : "#fffc"};
+    background: ${props => props.$background ? props.$background : "#ffffff"};
     border-radius: ${props => props.$borderRadius ? `${props.$borderRadius}px` : "12px"};
+    
+
 `
 
 export default BaseInput
