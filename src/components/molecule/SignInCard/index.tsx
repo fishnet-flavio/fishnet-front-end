@@ -40,14 +40,14 @@ const SignInCard = () => {
                     <BaseInput $width="17.5rem" placeholder="Senha" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
                 </Base>
 
-                <Base $flexDirection="row" $gap={2} $alignItems="center">
+                <Base $flexDirection="row" $gap={2} $alignItems="center" $justifyContent="space-between">
                     <BaseText $fontSize={20} >Icone: </BaseText>
-                    <BaseButton $width="17.5rem" $height="3rem" $background="#fff" $color="#000" $border="2px solid #ffaaff" $padding="1rem 1 rem" type="button" onClick={clickSendFile}>Enviar Arquivo</BaseButton>
+                    <BaseButton $width="19.7rem" $height="3rem" $background="#fff" $color="#000" $border="2px solid #ffaaff" type="button" onClick={clickSendFile}>Enviar Arquivo</BaseButton>
                     <BaseInput id="findArchiveButton" type="file" hidden />
                 </Base>
-                <Base $flexDirection="row" $gap={2} $alignItems="center">
-                    <BaseText $fontSize={20}>Vendedor: </BaseText>
-                    <BaseInput type="checkbox"/>
+                <Base $flexDirection="row" $gap={0} $alignItems="center">
+                    <BaseButton $width="50%" $height="3rem" $background="#fff" $color="#000" $border="1" $padding="0" >Vendedor</BaseButton>
+                    <BaseButton $width="auto" $height="3rem" $background="#fff" $color="#000" $border="1" $padding="0" >Comprador</BaseButton>
                 </Base>
                 <Base $flexDirection="row" $gap={1} $justifyContent="center">
                     <BaseText>Já possui uma conta?</BaseText>
