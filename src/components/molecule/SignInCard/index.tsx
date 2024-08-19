@@ -42,7 +42,7 @@ const SignInCard = () => {
 
                 <Base $flexDirection="row" $gap={2} $alignItems="center">
                     <BaseText $fontSize={20} >Icone: </BaseText>
-                    <BaseButton $width="17.5rem" $height="3rem" $background="#fff" $color="#000" $border="2px solid #ffaaff" $padding="1rem 1 rem" onClick={()=> clickSendFile()} >Enviar Arquivo</BaseButton>
+                    <BaseButton $width="17.5rem" $height="3rem" $background="#fff" $color="#000" $border="2px solid #ffaaff" $padding="1rem 1 rem" type="button" onClick={clickSendFile}>Enviar Arquivo</BaseButton>
                     <BaseInput id="findArchiveButton" type="file" hidden />
                 </Base>
                 <Base $flexDirection="row" $gap={2} $alignItems="center">
