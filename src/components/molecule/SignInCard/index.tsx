@@ -16,6 +16,10 @@ const SignInCard = () => {
         event.preventDefault()
     }
 
+    const clickSendFile = () =>{
+        document.getElementById("findArchiveButton")?.click();
+    }
+
     return (
         <form>
             <Base $width="26rem" $alignItems="center" $borderRadius={16} $padding="2rem" $gap={2} >
@@ -38,8 +42,8 @@ const SignInCard = () => {
 
                 <Base $flexDirection="row" $gap={2} $alignItems="center">
                     <BaseText $fontSize={20} >Icone: </BaseText>
-                    <BaseButton $width="17.5rem" $height="3rem" $background="#fff" $color="#000" $border="2px solid #ffaaff" $padding="1rem 1 rem">Enviar Arquivo</BaseButton>
-                    <BaseInput type="file" hidden />
+                    <BaseButton $width="17.5rem" $height="3rem" $background="#fff" $color="#000" $border="2px solid #ffaaff" $padding="1rem 1 rem" onClick={()=> clickSendFile()} >Enviar Arquivo</BaseButton>
+                    <BaseInput id="findArchiveButton" type="file" hidden />
                 </Base>
                 <Base $flexDirection="row" $gap={2} $alignItems="center">
                     <BaseText $fontSize={20}>Vendedor: </BaseText>
