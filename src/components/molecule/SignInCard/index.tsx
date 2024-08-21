@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, MouseEvent  } from "react";
 import Base from "../../atom/Base"
 import BaseInput from "../../atom/BaseInput";
 import BaseText from "../../atom/BaseText"
@@ -11,13 +11,19 @@ const SignInCard = () => {
     const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [selectedButton, setSelectedButton] = useState<string>("");
 
     const handleRegister = (event: FormEvent) => {
-        event.preventDefault()
+        event.preventDefault();
     }
 
-    const clickSendFile = () =>{
+    const clickSendFile = (event: FormEvent) =>{
+        event.preventDefault();
         document.getElementById("findArchiveButton")?.click();
+    }
+    const changeSelectedButton=(buttonType: 'vendedor' | 'cliente',  event: MouseEvent<HTMLButtonElement>) =>{
+        event.preventDefault();
+        setSelectedButton(buttonType)
     }
 
     return (
@@ -46,8 +52,8 @@ const SignInCard = () => {
                     <BaseInput id="findArchiveButton" type="file" hidden />
                 </Base>
                 <Base $flexDirection="row" $gap={0} $alignItems="center">
-                    <BaseButton $width="50%" $height="3rem" $background="#fff" $color="#000" $border="1" $padding="0" >Vendedor</BaseButton>
-                    <BaseButton $width="auto" $height="3rem" $background="#fff" $color="#000" $border="1" $padding="0" >Comprador</BaseButton>
+                    <BaseButton $width="50%" $height="3rem" $background="#fff" $selected={selectedButton==='vendedor'} $color="#000" $border="1" $borderRadius="12px 0px 0px 12px" $padding="0" onClick={(event) => changeSelectedButton('vendedor', event)}>Vendedor</BaseButton>
+                    <BaseButton $width="50%" $height="3rem" $background="#fff" $selected={selectedButton==='cliente'} $color="#000" $border="1" $padding="0" $borderRadius="0px 12px 12px 0px" onClick={(event) => changeSelectedButton('cliente', event)}>Cliente</BaseButton>
                 </Base>
                 <Base $flexDirection="row" $gap={1} $justifyContent="center">
                     <BaseText>Já possui uma conta?</BaseText>
