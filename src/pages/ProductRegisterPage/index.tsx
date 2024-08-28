@@ -7,7 +7,7 @@ import { SyntheticEvent } from "react"
 import handleProductRegister from "./handleProductRegister"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
-
+import {FormEvent} from "react";
 const ProductRegisterPage = () => {
     const params = useParams()
 
@@ -35,7 +35,10 @@ const ProductRegisterPage = () => {
         e.preventDefault();
         const vendorId = params.vendorId
     }
-
+    const clickSendFile = (event: FormEvent) =>{
+        event.preventDefault();
+        document.getElementById("findArchiveButton")?.click();
+    }
 
     return (
         <Base $alignItems="center" $background="transparent">
@@ -59,10 +62,13 @@ const ProductRegisterPage = () => {
                     </label>
                         <BaseInput $width="90%" $margin=".5rem 0" type="number" placeholder="Estoque" {...register("stock")}/>
                     <label>
-                        <BaseText>Imagem: </BaseText>
-                        <BaseInput $width="90%" $margin=".5rem 0" type="file" accept="image/png, image/jpeg" {...register("image")}/>
+                        <Base $flexDirection="row" $gap={2} $alignItems="center" $justifyContent="space-between">
+                            <BaseText $fontSize={20} >Icone: </BaseText>
+                            <BaseButton $width="19.7rem" $height="3rem" $background="#fff" $color="#000" $border="2px solid #ffaaff" type="button" onClick={clickSendFile}>Escolher Imagem</BaseButton>
+                            <BaseInput id="findArchiveButton" type="file" hidden />
+                        </Base>
                     </label>
-                    <BaseButton type="submit">Enviar</BaseButton>
+                    <BaseButton type="submit" $padding="50px">Enviar</BaseButton>
                 </form>
             </Base>
         </Base>

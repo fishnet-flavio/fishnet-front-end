@@ -9,7 +9,9 @@ const BaseButton = styled.button<{
     $border?: string;
     $color?: string;
     $selected?: boolean;
+    $margin?: string;
     }>`
+    margin: ${props => props.$padding || '0'}
     padding: ${props => props.$padding || '0'};
     width: ${props => props.$width || '100%'};
     height: ${props => props.$height || '4rem'};
