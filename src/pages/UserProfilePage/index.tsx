@@ -114,26 +114,20 @@ const UserProfilePage = () => {
     const [userProfilePicture, setUserProfilePicture] = useState<string>("");
     
     useEffect(() => {
-        const getData = async () => {
-            const getUserData = async () => {
-                setUser(await getProfile());
-            }
-            await getUserData();
+        const getUserData = async () => {
+            setUser(await getProfile());
         }
-        getData();
-    }, [])
+        getUserData();
+    }, []);
 
     useEffect(() => {
-        const getData = async () => {
             const getProfilePicture = async () => {
                 const image = await fetchProfilePicture(user.id);
                 if (image) {
                     setUserProfilePicture(image);
                 }
             }
-            await getProfilePicture();
-        }
-        getData();
+            getProfilePicture();
     }, [user]);
 
     return (

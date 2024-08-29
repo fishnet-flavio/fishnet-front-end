@@ -72,6 +72,3 @@ const MarketPlacePage = () => {
 }
 
 export default MarketPlacePage
-/*
-
-*/

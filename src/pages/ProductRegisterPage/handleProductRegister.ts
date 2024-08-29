@@ -1,28 +1,19 @@
 import { api } from "../../services/api";
 
-interface Params {
-    vendorId: number;
-    name: string;
-    price: number;
-    description: string;
-    stock: number;
-    image?: File;
-}
 
-const handleProductRegister = async (params : Params) => {
+
+const handleProductRegister = async (form: FormData) => {
     try {
-        const createProduct = async () => {
-            return await api.post("/product", {
-                price: params.price,
-                name: params.name,
-                stock: params.stock,
-                description: params.description,
-                vendorId: params.vendorId
+        await api.post("/product", 
+            form, 
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
             });
-        }
-        createProduct();
+        return true;
     } catch (e) {
-        console.error(e);
+        console.error("Error:", e);
     }
 }
 

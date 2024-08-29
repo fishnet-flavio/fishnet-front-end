@@ -12,6 +12,7 @@ import VendorCard from "../../components/molecule/VendorCard";
 import Card from "../../components/molecule/Card";
 import { styled } from "styled-components";
 import { wait } from "@testing-library/user-event/dist/utils";
+import fetchProductImage from "./fetchProductImage";
 
 
 interface User {
@@ -69,6 +70,7 @@ const ProductPage = () => {
 
     const [profilePicture, setProfilePicture] = useState<string>("");
     const [product, setProduct] = useState<ProductInfo>();
+    const [productImage, setProductImage] = useState<string>("");
     const [otherProducts, setOtherProducts] = useState<ProductInfo[]>([]);
 
     useEffect(() => {
@@ -131,12 +133,21 @@ const ProductPage = () => {
     }, [params.vendorId]
     );
 
+    useEffect(() => {
+        const getProductImage = async () => {
+            const image = await fetchProductImage(Number(params.productId));
+            if (image) {
+                setProductImage(image);
+            }
+        }
+        getProductImage();
+    })
+
     if (!product) {
         return (
             <BaseText>Não há informações neste produto</BaseText>
         );
     }
-    console.log(product.vendor)
     return (
         <Base $gap={2} $background="transparent" $zIndex={1}>
             <Base $borderRadius={12} $height="fit-content" $padding="2rem 6rem 8rem 2rem" $width="full">
@@ -147,7 +158,7 @@ const ProductPage = () => {
                         <BaseButton>Comprar</BaseButton>
                     </Base>
                     <Base $width="fit-content" $alignItems="center" $gap={1.5}>
-                        <BaseImage src={shopImage} $width="24rem" $height="18rem"/>
+                        <BaseImage src={productImage ? productImage : shopImage} $width="24rem" $height="18rem"/>
                         <VendorCard vendorName={product.vendor.user.name} vendorImageUrl={profilePicture} />
                         <BaseText>Anunciado em: {format(new Date(product.announcedAt), "dd/MM/yyyy")}</BaseText>
                     </Base>

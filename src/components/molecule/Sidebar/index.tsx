@@ -146,12 +146,6 @@ const Sidebar = (props: SidebarProps) => {
             link: `/${currentUser.vendor?.id}/product-register`,
             responsive: false
         },
-        {
-            icon: <IoIosCash size={32} color="#000"/>,
-            name: "Vendas",
-            link: "/login",
-            responsive: false
-        }
     ]
 
     return (

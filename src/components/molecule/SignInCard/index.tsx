@@ -29,7 +29,6 @@ const SignInCard = () => {
             formData.append("profilePicture", image);
         }
 
-        console.log(Object.fromEntries(formData));
         const register = await handleUserRegister(formData);
         if (register) {
             navigate("/login");

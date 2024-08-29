@@ -5,6 +5,7 @@ import BaseImage from "../../atom/BaseImage";
 import BaseText from "../../atom/BaseText";
 import VendorCard from "../VendorCard";
 import shopImage from "../../../assets/barco.png"
+import productPlaceHolderImage from "../../../assets/pirarucu.jpg";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
@@ -14,6 +15,8 @@ import IconHoverCard from "../IconHoverCard";
 import { styled } from "styled-components";
 import { toast } from "react-toastify";
 import getProfile from "../../../pages/UserProfilePage/getProfile"
+import fetchProfilePicture from "../../../pages/UserProfilePage/fetchProfilePicture";
+import fetchProductImage from "../../../pages/ProductPage/fetchProductImage";
 
 interface User {
     id: number;
@@ -142,6 +145,9 @@ const IconBase = styled.div`
 const Card = (props: CardProps) => {
     const [favorite, setFavorite] = useState<boolean>(false);
     const [user, setUser] = useState<User>({id:2, imageUrl:"AAA", name:"Test"});   
+    const [userProfilePicture, setUserProfilePicture] = useState<string>("");
+    const [productImage, setProductImage] = useState<string>("");
+
 
     const handleFavorite = async (productId: number, fav: boolean, userId: number) => {
         await HandleFavorite(productId, fav, userId);
@@ -159,20 +165,37 @@ const Card = (props: CardProps) => {
                     console.log(err);
                 }
             };
-            fetchUserProfile();
-    
+            fetchUserProfile();    
     }, []);
+
+    useEffect(() => {
+        const getProfilePicture = async () => {
+            const profilePicture = await fetchProfilePicture(props.vendor.id);
+            if (profilePicture) {
+                setUserProfilePicture(profilePicture);
+            }
+        }
+        getProfilePicture();
+    }, [])
+
+    useEffect(() => {
+        const getProductImage = async () => {
+            const productImage = await fetchProductImage(props.id);
+            if (productImage) {
+                setProductImage(productImage);
+            }
+        }
+        getProductImage();
+    }, [])
 
     const handleAddToCart = () => {
     }
-    
-    console.log(user.id)
 
     return (
         <CardBase $mini={props.mini}>
             <Base $width="fit-content" $height="max-content" $gap={2} $zIndex={1}>
-                <BaseImage src={props.imageUrl} $width="16rem" $height="12rem" />
-                <VendorCard vendorImageUrl={props.vendor.user.imageUrl ? props.vendor.user.imageUrl : shopImage} vendorName={props.vendor.user.name} />
+                <BaseImage src={productImage ? productImage : productPlaceHolderImage} $width="16rem" $height="12rem" />
+                <VendorCard vendorImageUrl={userProfilePicture ? userProfilePicture : shopImage} vendorName={props.vendor.user.name} />
                 <BaseText>Avaliação do vendedor:</BaseText> <BaseText $fontWeight="bold" $fontSize={32} $color={props.vendor.rating >= 70 ? "#09e409a6" : "#fb0" }>{props.vendor.rating}</BaseText>
             </Base>
             <Base $gap={2} $height="max-content" $maxWidth="100%" $zIndex={1}>
