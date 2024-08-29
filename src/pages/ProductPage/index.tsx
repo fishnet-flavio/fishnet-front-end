@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import VendorCard from "../../components/molecule/VendorCard";
 import Card from "../../components/molecule/Card";
 import { styled } from "styled-components";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 
 interface User {
@@ -65,6 +66,8 @@ const TextSeparator = styled.h2`
 
 const ProductPage = () => {
     const params = useParams();
+
+    const [profilePicture, setProfilePicture] = useState<string>("");
     const [product, setProduct] = useState<ProductInfo>();
     const [otherProducts, setOtherProducts] = useState<ProductInfo[]>([]);
 
@@ -110,6 +113,24 @@ const ProductPage = () => {
             }
     }, [product])
 
+
+    useEffect (() => {
+        const getData = async () => {
+            const fetchProfilePicture = async () => {
+                const response = await api.get(`/user/${params.vendorId}/profile-picture`,
+                {
+                    responseType: "arraybuffer"
+            });
+                const imageBlob = new Blob([response.data], { type: "image/jpeg" });
+                const imageUrl = URL.createObjectURL(imageBlob);
+                setProfilePicture(imageUrl);
+            }
+            await fetchProfilePicture();
+        }
+        getData();
+    }, [params.vendorId]
+    );
+
     if (!product) {
         return (
             <BaseText>Não há informações neste produto</BaseText>
@@ -127,15 +148,15 @@ const ProductPage = () => {
                     </Base>
                     <Base $width="fit-content" $alignItems="center" $gap={1.5}>
                         <BaseImage src={shopImage} $width="24rem" $height="18rem"/>
-                        <VendorCard vendorName={product.vendor.user.name} vendorImageUrl="" />
+                        <VendorCard vendorName={product.vendor.user.name} vendorImageUrl={profilePicture} />
                         <BaseText>Anunciado em: {format(new Date(product.announcedAt), "dd/MM/yyyy")}</BaseText>
                     </Base>
                 </Base>
             </Base>
+            {
+            otherProducts.length > 0 ?
             <Base $borderRadius={12} $height="fit-content" $padding="4rem 2rem 16rem 2rem" $width="full" $gap={8} $zIndex={1} >
                 <TextSeparator>Mais do mesmo vendedor:</TextSeparator>
-                {
-                    otherProducts ?
                     <ProductsBase> 
                         {otherProducts.map(p => 
                             <Card 
@@ -149,10 +170,9 @@ const ProductPage = () => {
                                 mini={true}
                                 imageUrl=""
                             />)}
-                    </ProductsBase> :
-                    <BaseText $textAlign="center">Esse vendedor não há mais produtos cadastrados.</BaseText>
-                }
-            </Base>
+                    </ProductsBase>
+            </Base> : ""
+            }
         </Base>
     )
 }
