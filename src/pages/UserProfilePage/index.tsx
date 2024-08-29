@@ -120,12 +120,9 @@ const UserProfilePage = () => {
             <BaseImage src={userImage} $borderRadius={128} $width="16rem" $height="16rem"/>
             <BaseText $fontSize={16}>{user.name}</BaseText>
         </Base>
-        <Edit>
-            <IconHoverCard hoverText="Editar" icon={<HiOutlinePencilAlt color="#000" size={32} />}/>
-        </Edit>
         <Base $background="transparent" $position="relative" $flexDirection="row" $width="fit-content">
             <NavItem>
-                <Link to={`${user.id}/shopping-cart`} >
+                <Link to={`/shopping-cart`} >
                     <FaShoppingCart color="#000" size={32} />
                     <BaseText className="label">Meu Carrinho</BaseText>
                 </Link>
