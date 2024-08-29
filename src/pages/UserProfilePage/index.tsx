@@ -10,6 +10,7 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 import { Link } from "react-router-dom"
 import { FaShoppingCart } from "react-icons/fa"
 import { FaBagShopping } from "react-icons/fa6"
+import getProfile from "./getProfile"
 
 interface User {
     id: number;
@@ -108,9 +109,10 @@ const NavItem = styled.span`
 `
 
 const UserProfilePage = () => {
-    const params = useParams()
     const [user, setUser] = useState<User>({id: 2, name: "Natan", imageUrl: {userImage}});
-
+    const getUser = getProfile()
+    
+    console.log(getUser);
     return (
     <ProfileBase>
         <BaseText $fontWeight="bold" $fontSize={24} >Perfil do Usuário</BaseText>
