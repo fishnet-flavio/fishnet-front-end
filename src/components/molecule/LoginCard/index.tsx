@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Base from "../../atom/Base"
 import BaseButton from "../../atom/BaseButton"
 import BaseInput from "../../atom/BaseInput"
@@ -6,18 +6,26 @@ import BaseText from "../../atom/BaseText"
 import { FormEvent, useState } from "react"
 import logo from "../../../assets/fishnet-logo.png"
 import BaseImage from "../../atom/BaseImage"
+import handleUserLogin from "./handleUserLogin"
 
 const LoginCard = () => {
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const handleLogin = (event: FormEvent) => {
+    const navigate = useNavigate();
+
+    const handleLogin = async (event: FormEvent) => {
         event.preventDefault()
+
+        const login = await handleUserLogin(email, password);
+        if (login) {
+            navigate("/");
+        }
     }
 
     return (
-        <form>
+        <form onSubmit={handleLogin}>
             <Base $width="26rem" $alignItems="center" $borderRadius={16} $padding="2rem" $gap={2} >
                 <Link to="/">
                         <BaseImage src={logo} $width="12rem" $height="10rem" />
@@ -37,7 +45,7 @@ const LoginCard = () => {
                         <BaseText $fontWeight="bold">Crie aqui</BaseText>
                     </Link>
                 </Base>
-                <BaseButton type="submit" onSubmit={(event) => {handleLogin(event)}}>Enviar</BaseButton>
+                <BaseButton type="submit">Enviar</BaseButton>
             </Base>
         </form>
     )

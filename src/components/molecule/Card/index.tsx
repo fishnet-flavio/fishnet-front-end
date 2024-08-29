@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { HandleFavorite } from "./handleFavorite";
 import IconHoverCard from "../IconHoverCard";
 import { styled } from "styled-components";
+import { toast } from "react-toastify";
 
 interface User {
     id: number;
@@ -140,12 +141,9 @@ const IconBase = styled.div`
 const Card = (props: CardProps) => {
     const [favorite, setFavorite] = useState<boolean>(false);
 
-    const handleFavorite = (productId: number, fav: boolean) => {
-        HandleFavorite(productId, fav).then(
-            () => {
-                setFavorite(!favorite);
-            }
-        );
+    const handleFavorite = async (productId: number, fav: boolean) => {
+        await HandleFavorite(productId, fav);
+        setFavorite(!favorite);
     }
 
     const handleAddToCart = () => {
@@ -176,7 +174,8 @@ const Card = (props: CardProps) => {
             </Base>
             <IconBase>
                 {favorite ? 
-                <IconHoverCard icon={<FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite(props.id, false)} className="hover" />} hoverText="Desfavoritar" />:
+                <IconHoverCard icon={<FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite(props.id, false)} className="hover" />} hoverText="Desfavoritar" />
+                :
                 <IconHoverCard icon={<FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite(props.id, true)} className="hover" /> } hoverText="Favoritar" />
                 }
                 <IconHoverCard icon={<MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleAddToCart} />} hoverText="Adicionar no carrinho"/>

@@ -10,6 +10,12 @@ import ProductRegisterPage from "../pages/ProductRegisterPage";
 import SignInPage from "../pages/SignInPage";
 import Page from "../pages/Page";
 import AuthPage from "../pages/AuthPage";
+import ProtectedRoute from "./protectedRoute";
+
+const isAuthenticated  = () => {
+    const token = localStorage.getItem("token");
+    return !!token;
+}
 
 const router = createBrowserRouter([
     {
@@ -18,15 +24,16 @@ const router = createBrowserRouter([
         children: [
             {path: "", element: <Page />, children: [
                 {path: "", element: <MarketPlacePage />},
-                    {path: ":vendorId", children: [
-                        {path: "sale/:productId", element: <ProductPage />},
-                        {path: "product-register", element: <ProductRegisterPage />}]},
-                        
-                    {path: ":userId", children: [
-                        {path: "profile", element: <UserProfilePage />},
-                        {path: "wishlist", element: <WishlistPage />},
-                        {path: "shopping-cart", element: <ShoppingCartPage />},
-                    ]},
+                {path: ":vendorId", element: <ProtectedRoute isAuthenticated={isAuthenticated} />, 
+                children: [
+                    {path: "sale/:productId", element: <ProductPage />},
+                    {path: "product-register", element: <ProductRegisterPage />}]},
+                {path: ":userId", element: <ProtectedRoute isAuthenticated={isAuthenticated} />, 
+                children: [
+                    {path: "profile", element: <UserProfilePage />},
+                    {path: "wishlist", element: <WishlistPage />},
+                    {path: "shopping-cart", element: <ShoppingCartPage />},
+                ]},
             ]},
             {path: "", element: <AuthPage />, children: [
                 {path: "login", element: <LoginPage />},
