@@ -145,7 +145,7 @@ const UserProfilePage = () => {
         </Base>
         <Base $background="transparent" $position="relative" $flexDirection="row" $width="fit-content">
             <NavItem>
-                <Link to={`/shopping-cart`} >
+                <Link to={`/${user.id}/shopping-cart`} >
                     <FaShoppingCart color="#000" size={32} />
                     <BaseText className="label">Meu Carrinho</BaseText>
                 </Link>

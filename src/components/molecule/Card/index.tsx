@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Base from "../../atom/Base"
 import BaseButton from "../../atom/BaseButton";
 import BaseImage from "../../atom/BaseImage";
@@ -13,6 +13,7 @@ import { HandleFavorite } from "./handleFavorite";
 import IconHoverCard from "../IconHoverCard";
 import { styled } from "styled-components";
 import { toast } from "react-toastify";
+import getProfile from "../../../pages/UserProfilePage/getProfile"
 
 interface User {
     id: number;
@@ -140,15 +141,32 @@ const IconBase = styled.div`
 
 const Card = (props: CardProps) => {
     const [favorite, setFavorite] = useState<boolean>(false);
+    const [user, setUser] = useState<User>({id:2, imageUrl:"AAA", name:"Test"});   
 
-    const handleFavorite = async (productId: number, fav: boolean) => {
-        await HandleFavorite(productId, fav);
+    const handleFavorite = async (productId: number, fav: boolean, userId: number) => {
+        await HandleFavorite(productId, fav, userId);
         setFavorite(!favorite);
     }
 
+    useEffect(() => {
+        const fetchUserProfile = async()=>{
+            try {
+                const profile = await getProfile();
+                if (profile) {
+                    setUser(profile);
+                }
+            }catch (err) {
+                    console.log(err);
+                }
+            };
+            fetchUserProfile();
+    
+    }, []);
+
     const handleAddToCart = () => {
-        
     }
+    
+    console.log(user.id)
 
     return (
         <CardBase $mini={props.mini}>
@@ -174,9 +192,9 @@ const Card = (props: CardProps) => {
             </Base>
             <IconBase>
                 {favorite ? 
-                <IconHoverCard icon={<FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite(props.id, false)} className="hover" />} hoverText="Desfavoritar" />
+                <IconHoverCard icon={<FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite(props.id, false, user.id)} className="hover" />} hoverText="Desfavoritar" />
                 :
-                <IconHoverCard icon={<FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite(props.id, true)} className="hover" /> } hoverText="Favoritar" />
+                <IconHoverCard icon={<FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite(props.id, true, user.id)} className="hover" /> } hoverText="Favoritar" />
                 }
                 <IconHoverCard icon={<MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleAddToCart} />} hoverText="Adicionar no carrinho"/>
             </IconBase>

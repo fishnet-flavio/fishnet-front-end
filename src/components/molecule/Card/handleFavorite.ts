@@ -1,5 +1,7 @@
 import { toast } from "react-toastify"
 import { api } from "../../../services/api";
+import { useState } from "react"
+import getProfile from "../../../pages/UserProfilePage/getProfile"
 
 interface User {
     id: number;
@@ -7,16 +9,25 @@ interface User {
     email: string;
 }
 
-export const HandleFavorite = async (productId: number, fav: boolean) => {
+export const HandleFavorite = async (productId: number, fav: boolean, userId: number) => {
     const favorite = async () => {
         //const user = localStorage.getItem("@fishnet:user");
-        const user : User = {id:1, username:"Test", email: "test@email.com"}
-        if (user) {
+
+        if (userId && fav) {
             //const userJson = JSON.parse(user) as User;
             return await api.post("/wishlist", {
                 productId: productId,
-                userId: user.id
+                userId: userId
                 //userId: userJson.id
+            });
+        }
+        else if (userId && !fav){
+            //const userJson = JSON.parse(user) as User;
+            return await api.delete("/wishlist", {
+                params:{
+                    productId: productId,
+                    userId: userId
+                }
             });
         }
     }

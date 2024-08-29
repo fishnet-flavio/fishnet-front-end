@@ -26,24 +26,7 @@ interface Product {
     description: string;
 }
 const ShoppingCartPage = () => {
-    const [products, setProducts] = useState<Product[]>([]);
-    
-        useEffect(() => {
-            try {
-                const getData = async () => {
-                    const fetchProducts = async () => {
-                        const response = await api.get("", {maxContentLength: 20});
-                        setProducts(response.data);
-                    }
-                    await fetchProducts();
-                }
-                    getData();
-                } catch (e) {
-                    toast.error("Erro ao carregar os dados.", {
-                        position: "top-right"
-                    });
-                }
-            }, [])
+
     return (
         <Base>
             <BaseText>Carrinho de Compras</BaseText>
