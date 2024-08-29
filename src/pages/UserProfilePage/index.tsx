@@ -111,25 +111,36 @@ const NavItem = styled.span`
 
 const UserProfilePage = () => {
     const [user, setUser] = useState<User>({ id: 1, email: "test@email.com", username:"test" });
-    const [userProfile, setUserProfile] = useState<string>("");
+    const [userProfilePicture, setUserProfilePicture] = useState<string>("");
     
     useEffect(() => {
         const getData = async () => {
-            setUser(await getProfile());
-            const profilePicture = await fetchProfilePicture(user.id);
-            if (profilePicture) {
-                setUserProfile(profilePicture);
+            const getUserData = async () => {
+                setUser(await getProfile());
             }
+            await getUserData();
         }
         getData();
     }, [])
 
-    console.log(user);
+    useEffect(() => {
+        const getData = async () => {
+            const getProfilePicture = async () => {
+                const image = await fetchProfilePicture(user.id);
+                if (image) {
+                    setUserProfilePicture(image);
+                }
+            }
+            await getProfilePicture();
+        }
+        getData();
+    }, [user]);
+
     return (
     <ProfileBase>
         <BaseText $fontWeight="bold" $fontSize={24} >Perfil do Usuário</BaseText>
         <Base $alignItems="center" $background="transparent">
-            <BaseImage src={userProfile ? userProfile : userImage} $borderRadius={128} $width="16rem" $height="16rem"/>
+            <BaseImage src={userProfilePicture ? userProfilePicture : userImage} $borderRadius={128} $width="16rem" $height="16rem"/>
             <BaseText $fontSize={16}>{user.username}</BaseText>
         </Base>
         <Base $background="transparent" $position="relative" $flexDirection="row" $width="fit-content">
