@@ -141,7 +141,7 @@ const ProductPage = () => {
             }
         }
         getProductImage();
-    })
+    }, [params.productId, params.vendorId]);
 
     if (!product) {
         return (

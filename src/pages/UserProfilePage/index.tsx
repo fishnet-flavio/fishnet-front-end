@@ -1,4 +1,4 @@
-import { useParams } from "react-router"
+import { redirect, useParams } from "react-router"
 import Base from "../../components/atom/Base"
 import BaseText from "../../components/atom/BaseText"
 import { styled } from "styled-components"

@@ -9,7 +9,7 @@ import productPlaceHolderImage from "../../../assets/pirarucu.jpg";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HandleFavorite } from "./handleFavorite";
 import IconHoverCard from "../IconHoverCard";
 import { styled } from "styled-components";
@@ -17,6 +17,8 @@ import { toast } from "react-toastify";
 import getProfile from "../../../pages/UserProfilePage/getProfile"
 import fetchProfilePicture from "../../../pages/UserProfilePage/fetchProfilePicture";
 import fetchProductImage from "../../../pages/ProductPage/fetchProductImage";
+import Modal from "../Modal";
+import { HandleAddToCart } from "./handleAddToCart";
 
 interface User {
     id: number;
@@ -147,7 +149,10 @@ const Card = (props: CardProps) => {
     const [user, setUser] = useState<User>({id:2, imageUrl:"AAA", name:"Test"});   
     const [userProfilePicture, setUserProfilePicture] = useState<string>("");
     const [productImage, setProductImage] = useState<string>("");
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [selectedQuantity, setSelectedQuantity] = useState<number>(1);
 
+    const navigate = useNavigate();
 
     const handleFavorite = async (productId: number, fav: boolean, userId: number) => {
         await HandleFavorite(productId, fav, userId);
@@ -161,7 +166,7 @@ const Card = (props: CardProps) => {
                 if (profile) {
                     setUser(profile);
                 }
-            }catch (err) {
+            } catch (err) {
                     console.log(err);
                 }
             };
@@ -188,8 +193,22 @@ const Card = (props: CardProps) => {
         getProductImage();
     }, [])
 
-    const handleAddToCart = () => {
+    const handleCart = () => {
+        setIsModalOpen(true);
     }
+
+    const handleConfirm = (quantity: number) => {
+        setSelectedQuantity(quantity);
+        createCart();
+    }
+
+    const createCart = async () => {
+        const cart = await HandleAddToCart(user.id, props.id, selectedQuantity);
+        if (cart) {
+            navigate(`${user.id}/shopping-cart`);
+        }
+    }
+
 
     return (
         <CardBase $mini={props.mini}>
@@ -219,8 +238,14 @@ const Card = (props: CardProps) => {
                 :
                 <IconHoverCard icon={<FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite(props.id, true, user.id)} className="hover" /> } hoverText="Favoritar" />
                 }
-                <IconHoverCard icon={<MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleAddToCart} />} hoverText="Adicionar no carrinho"/>
+                <IconHoverCard icon={<MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleCart} />} hoverText="Adicionar no carrinho"/>
             </IconBase>
+
+            <Modal 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={handleConfirm}
+            />
         </CardBase>
     )
 }

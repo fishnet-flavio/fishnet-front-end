@@ -1,4 +1,4 @@
-import { redirect, useParams } from "react-router"
+import { redirect, useNavigate, useParams } from "react-router"
 import Base from "../../components/atom/Base"
 import BaseInput from "../../components/atom/BaseInput"
 import BaseText from "../../components/atom/BaseText"
@@ -23,6 +23,8 @@ interface Vendor {
 const ProductRegisterPage = () => {
     const params = useParams()
 
+    const navigate = useNavigate();
+
     const [user, setUser] = useState<User | null>(null);
 
     const [name, setName] = useState<string>("");
@@ -34,9 +36,6 @@ const ProductRegisterPage = () => {
     useEffect(() => {
         const getUser = async () => {
             const fUser = await getProfile();
-            if (!fUser.vendor) {
-                redirect("/");
-            }
             setUser(fUser);
         }
         getUser();
@@ -45,7 +44,7 @@ const ProductRegisterPage = () => {
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
         if (!user) {
-            redirect("/login");
+            navigate("/login");
             return;
         }
 
@@ -62,7 +61,7 @@ const ProductRegisterPage = () => {
 
         const submitProduct = await handleProductRegister(form);
         if (submitProduct) {
-            redirect("/");
+            navigate("/");
         }
     }
     const clickSendFile = (event: FormEvent) =>{
