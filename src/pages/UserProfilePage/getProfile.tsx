@@ -2,7 +2,9 @@ import { api } from "../../services/api";
 
 const getProfile = async () => {
     try {
-        return (await api.get("/auth/profile")).data;
+        const response = (await api.get("/auth/profile"));
+        const userProfile = response.data.user;
+        return userProfile;
     } catch (error) {
         console.log("Error:", error);
     }

@@ -4,18 +4,19 @@ import BaseText from "../../components/atom/BaseText"
 import { styled } from "styled-components"
 import BaseImage from "../../components/atom/BaseImage"
 import userImage from "../../assets/user-profile.png"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import IconHoverCard from "../../components/molecule/IconHoverCard"
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { Link } from "react-router-dom"
 import { FaShoppingCart } from "react-icons/fa"
 import { FaBagShopping } from "react-icons/fa6"
 import getProfile from "./getProfile"
+import fetchProfilePicture from "./fetchProfilePicture"
 
 interface User {
     id: number;
-    imageUrl?: any;
-    name: string;
+    username: string;
+    email: string;
     vendor?: Vendor;
 }
 
@@ -109,16 +110,27 @@ const NavItem = styled.span`
 `
 
 const UserProfilePage = () => {
-    const [user, setUser] = useState<User>({id: 2, name: "Natan", imageUrl: {userImage}});
-    const getUser = getProfile()
+    const [user, setUser] = useState<User>({ id: 1, email: "test@email.com", username:"test" });
+    const [userProfile, setUserProfile] = useState<string>("");
     
-    console.log(getUser);
+    useEffect(() => {
+        const getData = async () => {
+            setUser(await getProfile());
+            const profilePicture = await fetchProfilePicture(user.id);
+            if (profilePicture) {
+                setUserProfile(profilePicture);
+            }
+        }
+        getData();
+    }, [])
+
+    console.log(user);
     return (
     <ProfileBase>
         <BaseText $fontWeight="bold" $fontSize={24} >Perfil do Usuário</BaseText>
         <Base $alignItems="center" $background="transparent">
-            <BaseImage src={userImage} $borderRadius={128} $width="16rem" $height="16rem"/>
-            <BaseText $fontSize={16}>{user.name}</BaseText>
+            <BaseImage src={userProfile ? userProfile : userImage} $borderRadius={128} $width="16rem" $height="16rem"/>
+            <BaseText $fontSize={16}>{user.username}</BaseText>
         </Base>
         <Base $background="transparent" $position="relative" $flexDirection="row" $width="fit-content">
             <NavItem>
