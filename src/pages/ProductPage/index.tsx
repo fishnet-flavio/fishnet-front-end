@@ -11,7 +11,6 @@ import { format } from "date-fns";
 import VendorCard from "../../components/molecule/VendorCard";
 import Card from "../../components/molecule/Card";
 import { styled } from "styled-components";
-import { wait } from "@testing-library/user-event/dist/utils";
 import fetchProductImage from "./fetchProductImage";
 
 

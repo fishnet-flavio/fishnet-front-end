@@ -7,6 +7,8 @@ import BaseText from "../../atom/BaseText";
 import VendorCard from "../VendorCard";
 import fetchProfilePicture from "../../../pages/UserProfilePage/fetchProfilePicture";
 import fetchProductImage from "../../../pages/ProductPage/fetchProductImage";
+import { IoMdCloseCircle } from "react-icons/io";
+import IconHoverCard from "../IconHoverCard";
 
 interface User {
     id: number;
@@ -21,13 +23,13 @@ interface Vendor {
 }
 
 interface CartProps {
-    id: number
-    imageUrl: string;
+    id: number;
+    productId: number;
     name: string;
-    stock: number;
     vendor: Vendor;
     price: number;
     ammountBought: number;
+    deleteMethod: (id: number) => void;
 }
 
 const ShoppingCartItem = (props: CartProps) => {
@@ -47,7 +49,7 @@ const ShoppingCartItem = (props: CartProps) => {
 
     useEffect(() => {
         const getProductImage = async () => {
-            const productImage = await fetchProductImage(props.id);
+            const productImage = await fetchProductImage(props.productId);
             if (productImage) {
                 setProductImage(productImage);
             }
@@ -55,8 +57,10 @@ const ShoppingCartItem = (props: CartProps) => {
         getProductImage();
     }, [])
 
+    
+
     return (
-        <Base>
+        <Base $flexDirection="row" $alignItems="center" $padding="2rem" $width="80%" $gap={3}>
             <Base $width="fit-content" $height="max-content" $gap={2} $zIndex={1}>
                 <BaseImage src={ productImage ? productImage : productTemplateImage } $width="16rem" $height="12rem" />
                 <VendorCard vendorImageUrl={ userProfilePicture ? userProfilePicture : shopImage } vendorName={props.vendor.user.name} />
@@ -65,7 +69,8 @@ const ShoppingCartItem = (props: CartProps) => {
                 <BaseText $fontSize={24} $fontWeight="bold">{props.name}</BaseText>
                 <BaseText $fontSize={36} $fontWeight="bold">R$ {props.price.toFixed(2)}</BaseText>
             </Base>
-            <BaseText>{props.ammountBought}</BaseText>
+            <BaseText>Quantidade comprada: {props.ammountBought}</BaseText>
+            <IconHoverCard icon={<IoMdCloseCircle size={32} color="#f32"/>} hoverText="Tirar do Carrinho" onClick={() => props.deleteMethod(props.id)}/>
         </Base>
     )
 }

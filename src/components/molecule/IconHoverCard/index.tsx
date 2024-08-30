@@ -5,6 +5,7 @@ import BaseText from "../../atom/BaseText";
 interface Props {
     icon: JSX.Element;
     hoverText: string;
+    onClick?: () => void;
 }
 
 const HoverBase = styled.div`
@@ -36,7 +37,7 @@ const HoverBase = styled.div`
 
 const IconHoverCard = (props: Props) => {
     return (
-        <Base $background="transparent" $height="fit-content" $position="relative">
+        <Base $background="transparent" $height="fit-content" $position="relative" onClick={props.onClick}>
             <HoverBase>
                 {props.icon}
                 <BaseText $color="#fff" $fontWeight="bold" className="card" $userSelect="none">{props.hoverText}</BaseText>
