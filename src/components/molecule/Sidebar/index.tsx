@@ -116,7 +116,7 @@ const Sidebar = (props: SidebarProps) => {
         {
             icon: <FaUserAlt size={32} color="#000"/>,
             name: "Perfil",
-            link: "/login",
+            link: `/${currentUser.id}/profile`,
             responsive: true
         },
         {
@@ -128,13 +128,13 @@ const Sidebar = (props: SidebarProps) => {
         {
             icon: <FaHeart size={32} color="#000"/>,
             name: "Favoritos",
-            link: "/",
+            link: `/${currentUser.id}/wishlist`,
             responsive: true
         },
         {
             icon: <FaBagShopping size={32} color="#000"/>,
             name: "Histórico",
-            link: "/login",
+            link: `/${currentUser.id}/history`,
             responsive: false
         },
     ]
@@ -145,7 +145,7 @@ const Sidebar = (props: SidebarProps) => {
             name: "Cadastrar",
             link: `/${currentUser.vendor?.id}/product-register`,
             responsive: false
-        },
+        }
     ]
 
     return (

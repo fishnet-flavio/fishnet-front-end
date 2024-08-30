@@ -11,6 +11,7 @@ import SignInPage from "../pages/SignInPage";
 import Page from "../pages/Page";
 import AuthPage from "../pages/AuthPage";
 import ProtectedRoute from "./protectedRoute";
+import MyPurchasesPage from "../pages/MyPurchasesPage";
 
 const isAuthenticated  = () => {
     const token = localStorage.getItem("token");
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
                     {path: "profile", element: <UserProfilePage />},
                     {path: "wishlist", element: <WishlistPage />},
                     {path: "shopping-cart", element: <ShoppingCartPage />},
+                    {path: "history", element: <MyPurchasesPage />}
                 ]},
             ]},
             {path: "", element: <AuthPage />, children: [
