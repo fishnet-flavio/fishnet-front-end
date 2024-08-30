@@ -4,6 +4,7 @@ import BaseText from "../../components/atom/BaseText";
 import PurchaseItem from "../../components/molecule/PurchaseItem";
 import getProfile from "../UserProfilePage/getProfile";
 import { api } from "../../services/api";
+import { format } from "date-fns";
 
 interface Vendor {
     id: number;
@@ -67,7 +68,6 @@ const MyPurchasesPage = () => {
         fetchUserAndPurchases();
     }, []);
 
-    // Função para calcular o total de uma compra
     const calculateTotal = (items: PurchaseItem[]) => {
         return items.reduce((total, item) => total + item.product.price * item.quantity, 0);
     };
@@ -79,7 +79,7 @@ const MyPurchasesPage = () => {
                 {purchases.length > 0 ? (
                     purchases.map(purchase => (
                         <Base key={purchase.id} $width="80%" $padding="1rem" $borderRadius={16} $alignItems="center" $background="linear-gradient(360deg, rgba(1,76,87,1) 0%, rgba(9,102,121,1) 15%, rgba(9,92,121,1) 49%, rgba(0,122,164,1) 100%)" $gap={1}>
-                            <BaseText $fontWeight="bold" $fontSize={32} $color="#fff">Compra {purchase.id}</BaseText>
+                            <BaseText $fontWeight="bold" $fontSize={32} $color="#fff">Compra {purchase.id} | Efetuada em {format(new Date(purchase.date), "dd/MM/yyyy")}</BaseText>
                             {purchase.items.length > 0 ? (
                                 <>
                                     {purchase.items.map(item => (

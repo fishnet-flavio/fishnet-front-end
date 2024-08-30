@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Base from "../../components/atom/Base"
 import BaseText from "../../components/atom/BaseText";
 import shopImage from "../../assets/pirarucu.jpg";
@@ -12,6 +12,9 @@ import VendorCard from "../../components/molecule/VendorCard";
 import Card from "../../components/molecule/Card";
 import { styled } from "styled-components";
 import fetchProductImage from "./fetchProductImage";
+import Modal from "../../components/molecule/Modal";
+import { HandleAddToCart } from "../../components/molecule/Card/handleAddToCart";
+import getProfile from "../UserProfilePage/getProfile";
 
 
 interface User {
@@ -67,10 +70,30 @@ const TextSeparator = styled.h2`
 const ProductPage = () => {
     const params = useParams();
 
+    const [user, setUser] = useState<User>({ id: 1, name: "test" });
     const [profilePicture, setProfilePicture] = useState<string>("");
     const [product, setProduct] = useState<ProductInfo>();
     const [productImage, setProductImage] = useState<string>("");
     const [otherProducts, setOtherProducts] = useState<ProductInfo[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [selectedQuantity, setSelectedQuantity] = useState<number>(1);
+
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const profile = await getProfile();
+                if (profile && profile.id) {
+                    setUser(profile);
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchUser();
+    }, []);
 
     useEffect(() => {
         try {
@@ -147,6 +170,23 @@ const ProductPage = () => {
             <BaseText>Não há informações neste produto</BaseText>
         );
     }
+
+    const handleCart = () => {
+        setIsModalOpen(true);
+    }
+
+    const handleConfirm = (quantity: number) => {
+        setSelectedQuantity(quantity);
+        createCart();
+    }
+
+    const createCart = async () => {
+        const cart = await HandleAddToCart(user.id, product.id, selectedQuantity);
+        if (cart) {
+            navigate(`/${user.id}/shopping-cart`);
+        }
+    }
+
     return (
         <Base $gap={2} $background="transparent" $zIndex={1}>
             <Base $borderRadius={12} $height="fit-content" $padding="2rem 6rem 8rem 2rem" $width="full">
@@ -154,7 +194,7 @@ const ProductPage = () => {
                     <Base $alignItems="center" $width="50%" $gap={4} $justifyContent="space-between">
                         <BaseText $fontSize={24} $fontWeight="bold">{product.name}</BaseText>
                         <BaseText>{product.description}</BaseText>
-                        <BaseButton>Comprar</BaseButton>
+                        <BaseButton onClick={handleCart}>Comprar</BaseButton>
                     </Base>
                     <Base $width="fit-content" $alignItems="center" $gap={1.5}>
                         <BaseImage src={productImage ? productImage : shopImage} $width="24rem" $height="18rem"/>
@@ -183,6 +223,12 @@ const ProductPage = () => {
                     </ProductsBase>
             </Base> : ""
             }
+            
+            <Modal 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={handleConfirm}
+            />
         </Base>
     )
 }
