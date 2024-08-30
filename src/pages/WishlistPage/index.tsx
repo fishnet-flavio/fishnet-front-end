@@ -5,6 +5,7 @@ import { api } from "../../services/api";
 import { toast } from 'react-toastify';
 import Card from "../../components/molecule/Card"
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 interface User {
     id: number;
     imageUrl?: string;
@@ -31,9 +32,11 @@ interface Product {
 }
 
 const WishlistPage = () => {
+    let reloads = 0;
     const [user, setUser] = useState<User>();
     const [items, setItems] = useState<Wishlist[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchUserAndItems = async () => {
             try {
@@ -67,7 +70,15 @@ const WishlistPage = () => {
         };
 
         fetchUserAndItems();
-    }, []);
+    },[navigate]);
+    useEffect(() => {
+        if (!user && reloads>20) {
+            navigate("/login");
+        }
+        reloads+=1;
+    }, [user, navigate]);
+
+
     console.log(items)
     return (<Base  $background="transparent" $flexDirection="row" $justifyContent="space-around" $flexWrap="wrap" $zIndex={1} $gap={2}>
         {products.length > 0 ? (

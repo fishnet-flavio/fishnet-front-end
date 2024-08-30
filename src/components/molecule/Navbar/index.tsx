@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import Sidebar from "../Sidebar";
 import getProfile from "../../../pages/UserProfilePage/getProfile"
-
+import { useNavigate } from "react-router-dom";
 interface User {
     id: string;
     name: string,
@@ -107,10 +107,10 @@ const NavItem = styled.span`
 
 
 const Navbar = () => {
-    
-    const [currentUser, setCurrentUser] = useState<User>({"id": "1", "name":"test@email.com", "userPhoto":"AAAA"});
-
+    let reloads = 0;
+    const [currentUser, setCurrentUser] = useState<User>({"id": "1", "name":"fakelogin", "userPhoto":"AAAA"});
     const [sidebar, setSidebar] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -127,7 +127,13 @@ const Navbar = () => {
         };
 
         fetchUser();
-    }, []);
+    }, [navigate]);
+    useEffect(() => {
+        if (currentUser.name=="fakelogin" && reloads>20) {
+            navigate("/login");
+        }
+        reloads+=1;
+    }, [currentUser, navigate]);
     const changeSidebar = () => {
         setSidebar(!sidebar);
     }
