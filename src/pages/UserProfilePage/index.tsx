@@ -145,7 +145,7 @@ const UserProfilePage = () => {
                 </Link>
             </NavItem>
             <NavItem>
-                <Link to={`#`} >
+                <Link to={`/${user.id}/history`} >
                     <FaBagShopping  color="#000" size={32} />
                     <BaseText className="label">Minhas Compras</BaseText>
                 </Link>
