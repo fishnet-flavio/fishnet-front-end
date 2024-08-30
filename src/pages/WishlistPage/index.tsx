@@ -1,10 +1,10 @@
 import Base from "../../components/atom/Base"
-import BaseText from "../../components/atom/BaseText"
 import { useEffect, useState } from "react";
 import getProfile from "../UserProfilePage/getProfile";
 import { api } from "../../services/api";
 import { toast } from 'react-toastify';
 import Card from "../../components/molecule/Card"
+import { styled } from "styled-components";
 interface User {
     id: number;
     imageUrl?: string;
@@ -29,6 +29,7 @@ interface Product {
     price: number;
     description: string;
 }
+
 const WishlistPage = () => {
     const [user, setUser] = useState<User>();
     const [items, setItems] = useState<Wishlist[]>([]);
@@ -68,7 +69,7 @@ const WishlistPage = () => {
         fetchUserAndItems();
     }, []);
     console.log(items)
-    return (<Base>
+    return (<Base  $background="transparent" $flexDirection="row" $justifyContent="space-around" $flexWrap="wrap" $zIndex={1} $gap={2}>
         {products.length > 0 ? (
                 products.map((p) => (
                     <Card

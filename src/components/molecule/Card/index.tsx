@@ -19,7 +19,7 @@ import fetchProfilePicture from "../../../pages/UserProfilePage/fetchProfilePict
 import fetchProductImage from "../../../pages/ProductPage/fetchProductImage";
 import Modal from "../Modal";
 import { HandleAddToCart } from "./handleAddToCart";
-
+import { api } from "../../../services/api";
 interface User {
     id: number;
     imageUrl?: string;
@@ -146,32 +146,36 @@ const IconBase = styled.div`
 
 const Card = (props: CardProps) => {
     const [favorite, setFavorite] = useState<boolean>(false);
-    const [user, setUser] = useState<User>({id:2, imageUrl:"AAA", name:"Test"});   
+    const [user, setUser] = useState<User>({ id: 2, imageUrl: "AAA", name: "Test" });
     const [userProfilePicture, setUserProfilePicture] = useState<string>("");
     const [productImage, setProductImage] = useState<string>("");
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedQuantity, setSelectedQuantity] = useState<number>(1);
-
     const navigate = useNavigate();
 
-    const handleFavorite = async (productId: number, fav: boolean, userId: number) => {
-        await HandleFavorite(productId, fav, userId);
-        setFavorite(!favorite);
-    }
-
     useEffect(() => {
-        const fetchUserProfile = async()=>{
+        const fetchUserProfile = async () => {
             try {
                 const profile = await getProfile();
                 if (profile) {
                     setUser(profile);
+
+                    // Fetch the user's wishlist to determine if the current product is favorited
+                    const wishlistResponse = await api.get<{ wishList: { productId: number }[] }>(`/user/${profile.id}/wishlist`);
+                    const wishList = wishlistResponse.data.wishList.map(item => item.productId);
+
+                    // Check if this product is in the user's wishlist
+                    if (wishList.includes(props.id)) {
+                        setFavorite(true);
+                    }
                 }
             } catch (err) {
-                    console.log(err);
-                }
-            };
-            fetchUserProfile();    
-    }, []);
+                console.log(err);
+            }
+        };
+
+        fetchUserProfile();
+    }, [props.id]);
 
     useEffect(() => {
         const getProfilePicture = async () => {
@@ -179,9 +183,9 @@ const Card = (props: CardProps) => {
             if (profilePicture) {
                 setUserProfilePicture(profilePicture);
             }
-        }
+        };
         getProfilePicture();
-    }, [])
+    }, [props.vendor.id]);
 
     useEffect(() => {
         const getProductImage = async () => {
@@ -189,55 +193,62 @@ const Card = (props: CardProps) => {
             if (productImage) {
                 setProductImage(productImage);
             }
-        }
+        };
         getProductImage();
-    }, [])
+    }, [props.id]);
+
+    const handleFavorite = async (productId: number, fav: boolean, userId: number) => {
+        await HandleFavorite(productId, fav, userId);
+        setFavorite(!favorite);
+    };
 
     const handleCart = () => {
         setIsModalOpen(true);
-    }
+    };
 
     const handleConfirm = (quantity: number) => {
         setSelectedQuantity(quantity);
         createCart();
-    }
+    };
 
     const createCart = async () => {
         const cart = await HandleAddToCart(user.id, props.id, selectedQuantity);
         if (cart) {
             navigate(`${user.id}/shopping-cart`);
         }
-    }
+    };
 
     return (
         <CardBase $mini={props.mini}>
             <Base $width="fit-content" $height="max-content" $gap={2} $zIndex={1}>
                 <BaseImage src={productImage ? productImage : productPlaceHolderImage} $width="16rem" $height="12rem" />
                 <VendorCard vendorImageUrl={userProfilePicture ? userProfilePicture : shopImage} vendorName={props.vendor.user.name} />
-                <BaseText>Avaliação do vendedor:</BaseText> <BaseText $fontWeight="bold" $fontSize={32} $color={props.vendor.rating >= 70 ? "#09e409a6" : "#fb0" }>{props.vendor.rating}</BaseText>
+                <BaseText>Avaliação do vendedor:</BaseText> 
+                <BaseText $fontWeight="bold" $fontSize={32} $color={props.vendor.rating >= 70 ? "#09e409a6" : "#fb0" }>
+                    {props.vendor.rating}
+                </BaseText>
             </Base>
             <Base $gap={2} $height="max-content" $maxWidth="100%" $zIndex={1}>
                 <BaseText $fontSize={24} $fontWeight="bold">{props.name}</BaseText>
                 <Base $overflowY="scroll" $boxSizing="content-box" $maxHeight="15rem" $padding="0 2rem 0 0">
                     <BaseText $textAlign="justify">{props.description}</BaseText>
                 </Base>
-                {
-                    props.stock > 0 ? 
-                    <BaseText $fontSize={16} >Estoque: {props.stock}</BaseText> : 
+                {props.stock > 0 ? 
+                    <BaseText $fontSize={16}>Estoque: {props.stock}</BaseText> :
                     <BaseText $color="#f04" $fontWeight="bold" $fontSize={16}>Sem estoque</BaseText>
                 }
                 <BaseText $fontSize={36} $fontWeight="bold">R$ {props.price.toFixed(2)}</BaseText>
                 <Link to={`/${props.vendor.id}/sale/${props.id}`}>
-                    <BaseButton onClick={() => window.scrollTo(0,0)}>Ver mais</BaseButton>
+                    <BaseButton onClick={() => window.scrollTo(0, 0)}>Ver mais</BaseButton>
                 </Link>
             </Base>
             <IconBase>
                 {favorite ? 
                 <IconHoverCard icon={<FaHeart cursor={"pointer"} size={32} color="#f04" onClick={() => handleFavorite(props.id, false, user.id)} className="hover" />} hoverText="Desfavoritar" />
                 :
-                <IconHoverCard icon={<FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite(props.id, true, user.id)} className="hover" /> } hoverText="Favoritar" />
+                <IconHoverCard icon={<FaRegHeart cursor={"pointer"} size={32} onClick={() => handleFavorite(props.id, true, user.id)} className="hover" />} hoverText="Favoritar" />
                 }
-                <IconHoverCard icon={<MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleCart} />} hoverText="Adicionar no carrinho"/>
+                <IconHoverCard icon={<MdAddShoppingCart cursor={"pointer"} size={32} className="hover" onClick={handleCart} />} hoverText="Adicionar no carrinho" />
             </IconBase>
 
             <Modal 
@@ -246,7 +257,6 @@ const Card = (props: CardProps) => {
                 onConfirm={handleConfirm}
             />
         </CardBase>
-    )
-}
-
+    );
+};
 export default Card
