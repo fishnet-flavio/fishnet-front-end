@@ -209,7 +209,6 @@ const Card = (props: CardProps) => {
         }
     }
 
-
     return (
         <CardBase $mini={props.mini}>
             <Base $width="fit-content" $height="max-content" $gap={2} $zIndex={1}>

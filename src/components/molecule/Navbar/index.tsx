@@ -6,9 +6,10 @@ import { FaShoppingCart } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
 import BaseImage from "../../atom/BaseImage";
 import logo from "../../../assets/fishnet-logo.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import Sidebar from "../Sidebar";
+import getProfile from "../../../pages/UserProfilePage/getProfile"
 
 interface User {
     id: string;
@@ -106,9 +107,27 @@ const NavItem = styled.span`
 
 
 const Navbar = () => {
-    const currentUser: User = {name: "user", id: "user123"};
+    
+    const [currentUser, setCurrentUser] = useState<User>({"id": "1", "name":"test@email.com", "userPhoto":"AAAA"});
+
     const [sidebar, setSidebar] = useState<boolean>(false);
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const profile = await getProfile();
+                if (profile && profile.id) {
+                    setCurrentUser(profile);
+                } else {
+                    throw new Error("Perfil de usuário inválido ou ID ausente.");
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        fetchUser();
+    }, []);
     const changeSidebar = () => {
         setSidebar(!sidebar);
     }
